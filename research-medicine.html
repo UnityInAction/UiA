@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UiA | Natural Medicine</title>
+    <link rel="shortcut icon" href="logo-nt.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #333;
+            --accent-color: #6a855c;
+            --text-light: #ffffff;
+            --text-dark: #24262b;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+            --shadow-normal: 0 4px 8px rgba(0, 0, 0, 0.2);
+            --shadow-large: 0 4px 20px rgba(255, 255, 255, 0.2);
+            --heading-font: 'Playfair Display', serif;
+            --body-font: 'Montserrat', sans-serif;
+            --nav-font: 'Raleway', sans-serif;
+            --green-text: #171b0a;
+            --dark-green: #18230f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        body {
+            font-family: var(--body-font);
+            overflow-x: hidden;
+            line-height: 1.6;
+            letter-spacing: 0.02rem;
+            background-color: black;
+            color: var(--text-light);
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+            box-shadow: var(--shadow-normal);
+            font-family: var(--nav-font);
+            letter-spacing: 0.15rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        nav.scrolled {
+            height: 70px;
+            background-color: var(--dark-green);
+        }
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+            font-family: var(--nav-font);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 0.25rem;
+        }
+
+        .navbar-logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .navbar-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            text-align: center;
+        }
+
+        .navbar-links li {
+            margin: 0 15px;
+        }
+
+        .navbar-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color var(--transition-normal);
+            display: block;
+        }
+
+        .navbar-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .navbar-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Header */
+        #main-header {
+            width: 100%;
+            height: 60vh;
+            background: url('banner-uia.png') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-align: center;
+            position: relative;
+            user-select: none;
+        }
+
+        #main-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 1rem;
+            width: 100%;
+        }
+
+        .header-content h1 {
+            font-size: 3rem;
+            margin: 0 0 1rem;
+            font-weight: bold;
+            font-family: var(--heading-font);
+            letter-spacing: 0.4rem;
+        }
+
+        .header-content p {
+            font-size: 1.25rem;
+            margin: 0;
+            font-family: var(--nav-font);
+            letter-spacing: 0.25rem;
+        }
+        .footer {
+            background-color: var(--dark-green);
+            padding: 40px 0;
+            text-align: center;
+            filter: blur(50%);
+        }
+        .footer-col h4 {
+            font-size: 20px;
+            color: #ffffff;
+            text-transform: capitalize;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        .footer-col h4::after {
+            content: '';
+            background-color: var(--accent-color);
+            height: 2px;
+            width: 50px;
+            display: block;
+            margin: 15px auto 20px;
+        }
+        .footer-col .social-links a {
+            display: inline-block;
+            height: 45px;
+            width: 45px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 0 10px 10px 0;
+            text-align: center;
+            line-height: 45px;
+            border-radius: 50%;
+            color: #ffffff;
+            transition: all 0.5s ease;
+        }
+        .footer-col .social-links a:hover {
+            color: #24262b;
+            background-color: #ffffff;
+            transform: scale(1.2);
+        }
+        .copyright {
+            font-size: 0.85rem;
+            color: #888888;
+            text-align: center;
+        }
+        .accent{
+            color: var(--accent-color);
+            text-transform: capitalize;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links {
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                display: none;
+                padding: 0;
+                margin: 0;
+                z-index: 1000;
+                box-shadow: var(--shadow-normal);
+            }
+
+            .navbar-links.active {
+                display: flex;
+            }
+
+            .navbar-links li {
+                margin: 0;
+                width: 100%;
+                border-bottom: 1px solid #444;
+            }
+
+            .navbar-links li a {
+                display: block;
+                padding: 15px;
+                text-align: center;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .navbar-logo {
+                font-size: 1.2rem;
+            }
+
+            .navbar-logo img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .header-content h1 {
+                font-size: 2rem;
+            }
+
+            .header-content p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-content h1 {
+                font-size: 1.7rem;
+            }
+
+            #main-header {
+                height: 40vh;
+            }
+
+            .footer-col .social-links a {
+                height: 35px;
+                width: 35px;
+                line-height: 35px;
+                margin: 0 5px 5px 0;
+            }
+            .footer { padding: 30px 0; }
+            .footer-col h4 {
+                margin-bottom: 15px;
+                font-size: 18px;
+            }
+            }
+            .research-section {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    position: relative;
+}
+
+.research-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(106, 133, 92, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(106, 133, 92, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.research-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title h2 {
+    font-family: var(--heading-font);
+    font-size: 3.5rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    letter-spacing: 0.1em;
+    position: relative;
+}
+
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-color) 0%, #8fa876 100%);
+    border-radius: 2px;
+}
+
+.section-subtitle {
+    font-family: var(--nav-font);
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.05em;
+    margin-top: 30px;
+}
+
+.papers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.paper-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border-radius: 20px;
+    padding: 40px 30px;
+    border: 1px solid rgba(106, 133, 92, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+.paper-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    transition: left 0.6s ease;
+}
+
+.paper-card:hover::before {
+    left: 100%;
+}
+
+.paper-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(106, 133, 92, 0.15);
+    border-color: var(--accent-color);
+}
+
+.paper-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.paper-type {
+    background: linear-gradient(45deg, var(--accent-color), #8fa876);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.paper-date {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    font-family: var(--nav-font);
+}
+
+.paper-title {
+    font-family: var(--heading-font);
+    font-size: 1.6rem;
+    color: var(--text-light);
+    margin-bottom: 15px;
+    line-height: 1.3;
+    font-weight: 600;
+}
+
+.paper-authors {
+    color: var(--accent-color);
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-family: var(--nav-font);
+}
+
+.paper-abstract {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.paper-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.paper-btn {
+    padding: 12px 24px;
+    border: 2px solid var(--accent-color);
+    background: transparent;
+    color: var(--accent-color);
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--nav-font);
+    text-transform: uppercase;
+}
+
+.paper-btn.primary {
+    background: linear-gradient(45deg, var(--accent-color), #8fa876);
+    color: white;
+    border-color: transparent;
+}
+
+.paper-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(106, 133, 92, 0.3);
+}
+
+.paper-btn.primary:hover {
+    background: linear-gradient(45deg, #8fa876, var(--accent-color));
+}
+
+.paper-stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+}
+
+.stat-icon {
+    color: var(--accent-color);
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .research-section {
+        padding: 60px 15px;
+    }
+    
+    .section-title h2 {
+        font-size: 2.5rem;
+    }
+    
+    .papers-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .paper-card {
+        padding: 30px 20px;
+    }
+    
+    .paper-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .paper-btn {
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title h2 {
+        font-size: 2rem;
+    }
+    
+    .paper-title {
+        font-size: 1.4rem;
+    }
+    
+    .paper-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+    </style>
+</head>
+<body>
+    <nav id="main-nav">
+        <a href="index.html" class="navbar-logo">
+            <img src="logo.png" alt="Verstappen Motors Logo"><p>Unity in Action</p>
+        </a>
+        <button class="navbar-toggle" aria-label="Toggle Navigation Menu">&#9776;</button>
+        <ul class="navbar-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="timeline.html">Past Projects</a></li>
+            <li><a href="works.html">Scientific Research</a></li>
+            <li><a href="members.html">Members</a></li>
+        </ul>
+    </nav>
+    
+    <header id="main-header">
+        <div class="header-content">
+            <h1>Natural Medicine</h1>
+            <p class="accent">UiA Research Paper Archives</p>
+        </div>
+    </header>
+    <section class="research-section">
+    <div class="research-container">
+        <div class="papers-grid">
+            <article class="paper-card">
+                <div class="paper-meta">
+                    <span class="paper-type">Research Article</span>
+                    <span class="paper-date">May 2024</span>
+                </div><br>
+                <h3 class="paper-title">Potensi daun Kale (Brassica oleracea var. sabellica) sebagai obat Anti-diabetes melalui Uji In Silico dan In Vitro</h3><br>
+                <p class="paper-authors">Arella Evelina Tondobala, Ruth Joelin Dharmadi</p><br>
+                <p class="paper-abstract">
+                    <iframe src="https://drive.google.com/file/d/1Jqv1Tnl6ScXKWPxcirzoKyaZcW5nVjQ5/preview" width="100%" height="480" allow="autoplay" sandbox="allow-scripts allow-same-origin"></iframe>
+                </p>
+            </article>
+            <article class="paper-card">
+                <div class="paper-meta">
+                    <span class="paper-type">Research Article</span>
+                    <span class="paper-date">May 2024</span>
+                </div>
+                <h3 class="paper-title">The Potential of Quercetin in Allium cepa Skin as a Natural Mammalian Sterile 20-like Protein Kinase 3 (MST3) Inhibitor as an Anti-Cancer Agent in Comparison to Synthetic Compound I3MT-3</h3>
+                <p class="paper-authors">Josephine Tedjaseputeri, Shane Anabelle Gondokusuma</p>
+                <p class="paper-abstract">
+                    <iframe src="https://drive.google.com/file/d/1VsdqvqHceIjmpUn0X97sDd0Xw8zeP-ZC/preview" width="100%" height="480" allow="autoplay" sandbox="allow-scripts allow-same-origin"></iframe>
+                </p>
+            </article>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+        <div class="footer-col">
+            <h4>Our Media</h4>
+            <div class="social-links">
+                <a href="https://www.instagram.com/unityinaction.id?igsh=Zm16eGR1NTQ2OTQ5" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@unityinaction.id?_t=ZS-8xJONGTydNq&_r=1" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <br>
+            <p class="copyright">UnityinAction.hub@gmail.com</p>
+        </div>
+    </footer>
+    
+    <script>
+        const navbarToggle = document.querySelector('.navbar-toggle');
+        const navbarLinks = document.querySelector('.navbar-links');
+        
+        navbarToggle.addEventListener('click', () => {
+            navbarLinks.classList.toggle('active');
+        });
+        
+        document.querySelectorAll('.navbar-links a').forEach(link => {
+            link.addEventListener('click', () => navbarLinks.classList.remove('active'));
+        });
+        
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+        
+        // Close navbar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navbarLinks.classList.contains('active') && 
+                !e.target.closest('.navbar-links') && 
+                !e.target.closest('.navbar-toggle')) {
+                navbarLinks.classList.remove('active');
+            }
+        });
+        
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you shortly.');
+            this.reset();
+        });
+        function reset(){
+            this.reset();
+        }
+    </script>
+</body>
+</html>

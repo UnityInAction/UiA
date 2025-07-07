@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity in Action</title>
+    <link rel="shortcut icon" href="logo-nt.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #333;
+            --accent-color: #6a855c;
+            --text-light: #ffffff;
+            --text-dark: #24262b;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+            --shadow-normal: 0 4px 8px rgba(0, 0, 0, 0.2);
+            --shadow-large: 0 4px 20px rgba(255, 255, 255, 0.2);
+            --heading-font: 'Playfair Display', serif;
+            --body-font: 'Montserrat', sans-serif;
+            --nav-font: 'Raleway', sans-serif;
+            --green-color: #2c3a20;
+            --dark-green: #18230f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: var(--body-font);
+            overflow-x: hidden;
+            line-height: 1.6;
+            letter-spacing: 0.02rem;
+            background-image: url(background.png);
+        }
+        #body{
+            -ms-overflow-style: none;
+        }
+       nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+            box-shadow: var(--shadow-normal);
+            font-family: var(--nav-font);
+            letter-spacing: 0.15rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        nav.scrolled {
+            height: 70px;
+            background-color: var(--dark-green);
+        }
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+            font-family: var(--nav-font);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 0.25rem;
+        }
+
+        .navbar-logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .navbar-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            text-align: center;
+        }
+
+        .navbar-links li {
+            margin: 0 15px;
+        }
+
+        .navbar-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color var(--transition-normal);
+            display: block;
+        }
+
+        .navbar-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .navbar-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Header */
+        #main-header {
+            width: 100%;
+            height: 50vh;
+            background: url('bg1.png') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-align: center;
+            position: relative;
+            user-select: none;
+            height: 100vh;
+        }
+
+        #main-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 1rem;
+            width: 100%;
+        }
+
+        .header-content h1 {
+            font-size: 3rem;
+            margin: 0 0 1rem;
+            font-weight: bold;
+            font-family: var(--heading-font);
+            letter-spacing: 0.5rem;
+        }
+
+        .header-content p {
+            font-size: 1.25rem;
+            margin-top: -10px;
+            font-family: var(--nav-font);
+            letter-spacing: 0.25rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: transparent;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12rem;
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-normal);
+            border: 1px solid var(--accent-color);
+            z-index: 1;
+            font-weight: 400;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: var(--green-color);
+            transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+            z-index: -1;
+        }
+
+        .btn:hover {
+            color: var(--text-light);
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+        .footer {
+            background-color: var(--dark-green);
+            padding: 40px 0;
+            text-align: center;
+            filter: blur(50%);
+        }
+        .footer-col h4 {
+            font-size: 20px;
+            color: #ffffff;
+            text-transform: capitalize;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        .footer-col h4::after {
+            content: '';
+            background-color: var(--accent-color);
+            height: 2px;
+            width: 50px;
+            display: block;
+            margin: 15px auto 20px;
+        }
+        .footer-col .social-links a {
+            display: inline-block;
+            height: 45px;
+            width: 45px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 0 10px 10px 0;
+            text-align: center;
+            line-height: 45px;
+            border-radius: 50%;
+            color: #ffffff;
+            transition: all 0.5s ease;
+        }
+        .footer-col .social-links a:hover {
+            color: #24262b;
+            background-color: #ffffff;
+            transform: scale(1.2);
+        }
+        .copyright {
+            font-size: 0.85rem;
+            color: #888888;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            #main-header{
+                min-height: 100vh;
+            }
+            .navbar-links {
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                display: none;
+                padding: 0;
+                margin: 0;
+                z-index: 1000;
+                box-shadow: var(--shadow-normal);
+            }
+
+            .navbar-links.active {
+                display: flex;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.8rem;
+            }
+            .navbar-links li {
+                margin: 0;
+                width: 100%;
+                border-bottom: 1px solid #444;
+            }
+
+            .navbar-links li a {
+                display: block;
+                padding: 15px;
+                text-align: center;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .navbar-logo {
+                font-size: 1.2rem;
+            }
+
+            .navbar-logo img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .header-content h1 {
+                font-size: 2rem;
+            }
+
+            .header-content p {
+                font-size: 1rem;
+            }
+
+        }
+        
+        @media (max-width: 480px) {
+            .header-content h1 {
+                font-size: 1.7rem;
+            }
+
+            #main-header {
+                height: 40vh;
+            }
+
+            .footer-col .social-links a {
+                height: 35px;
+                width: 35px;
+                line-height: 35px;
+                margin: 0 5px 5px 0;
+            }
+            .footer { padding: 30px 0; }
+            .footer-col h4 {
+                margin-bottom: 15px;
+                font-size: 18px;
+            }
+
+        }
+.vision-mission-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #0a0a0a 0%, #151515 50%, #0a0a0a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* About Unity in Action Section */
+.about-unity-section {
+    padding: 120px 0;
+    background: linear-gradient(180deg, #0a0a0a 0%, #151515 50%, #0a0a0a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-unity-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 30%, rgba(106, 133, 92, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(44, 58, 32, 0.06) 0%, transparent 40%);
+    pointer-events: none;
+}
+
+.about-content-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+.about-main {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 60px;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+.section-tag {
+    display: inline-block;
+    padding: 8px 20px;
+    background: linear-gradient(90deg, var(--accent-color), rgba(106, 133, 92, 0.8));
+    color: var(--text-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+    border-radius: 25px;
+    margin-bottom: 25px;
+    font-family: var(--nav-font);
+}
+
+.about-text h2 {
+    font-family: var(--heading-font);
+    font-size: 2.8rem;
+    color: var(--text-light);
+    margin-bottom: 25px;
+    letter-spacing: 0.1rem;
+    line-height: 1.2;
+}
+
+.lead-text {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 25px;
+    line-height: 1.7;
+    font-weight: 500;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.8;
+    margin-bottom: 40px;
+}
+
+.stats-row {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-family: var(--heading-font);
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin-bottom: 8px;
+    text-shadow: 0 0 20px rgba(106, 133, 92, 0.3);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
+}
+
+.about-visual {
+    display: flex;
+    justify-content: center;
+}
+
+.visual-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    border: 1px solid rgba(106, 133, 92, 0.3);
+    border-radius: 25px;
+    padding: 40px 30px;
+    text-align: center;
+    backdrop-filter: blur(15px);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.visual-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(106, 133, 92, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.visual-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent-color);
+    box-shadow: 0 25px 50px rgba(106, 133, 92, 0.2);
+}
+
+.visual-card:hover::before {
+    opacity: 1;
+}
+
+.visual-icon {
+    font-size: 3.5rem;
+    color: var(--accent-color);
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 2;
+    transition: all 0.4s ease;
+}
+
+.visual-card:hover .visual-icon {
+    transform: scale(1.1);
+    color: #ffffff;
+}
+
+.visual-card h4 {
+    font-family: var(--heading-font);
+    font-size: 1.5rem;
+    color: var(--text-light);
+    margin-bottom: 15px;
+    letter-spacing: 0.05rem;
+    position: relative;
+    z-index: 2;
+}
+
+.visual-card p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+}
+
+/* Mascot Section */
+.mascot-section {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 60px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 30px;
+    padding: 60px;
+    border: 1px solid rgba(106, 133, 92, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.mascot-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.mascot-placeholder {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, var(--accent-color), var(--green-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(106, 133, 92, 0.3);
+    transition: all 0.4s ease;
+}
+
+.mascot-placeholder:hover {
+    transform: scale(1.05) rotate(5deg);
+}
+
+.mascot-placeholder i {
+    font-size: 4rem;
+    color: var(--text-light);
+    z-index: 2;
+    position: relative;
+}
+
+.mascot-glow {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background: linear-gradient(45deg, rgba(106, 133, 92, 0.3), rgba(44, 58, 32, 0.2));
+    border-radius: 50%;
+    filter: blur(20px);
+    opacity: 0.7;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 0.9; }
+}
+
+.mascot-content h3 {
+    font-family: var(--heading-font);
+    font-size: 2.3rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    letter-spacing: 0.1rem;
+}
+
+.mascot-intro {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.7;
+    margin-bottom: 35px;
+}
+
+.mascot-features {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    border: 1px solid rgba(106, 133, 92, 0.1);
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+    background: rgba(106, 133, 92, 0.1);
+    border-color: rgba(106, 133, 92, 0.3);
+    transform: translateX(10px);
+}
+
+.feature-icon {
+    background: linear-gradient(135deg, var(--accent-color), rgba(106, 133, 92, 0.8));
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: var(--text-light);
+    flex-shrink: 0;
+}
+
+.feature-text h5 {
+    font-family: var(--heading-font);
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-bottom: 8px;
+    letter-spacing: 0.05rem;
+}
+
+.feature-text p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+    .about-unity-section {
+        padding: 80px 0;
+    }
+    
+    .about-main {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        margin-bottom: 80px;
+    }
+    
+    .about-text h2 {
+        font-size: 2.3rem;
+    }
+    
+    .lead-text {
+        font-size: 1.2rem;
+    }
+    
+    .stats-row {
+        justify-content: center;
+        gap: 30px;
+    }
+    
+    .mascot-section {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 40px 30px;
+    }
+    
+    .mascot-placeholder {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .mascot-placeholder i {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-unity-section {
+        padding: 60px 0;
+    }
+    
+    .about-text h2 {
+        font-size: 2rem;
+    }
+    
+    .lead-text {
+        font-size: 1.1rem;
+    }
+    
+    .about-text p {
+        font-size: 1rem;
+    }
+    
+    .stats-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .mascot-section {
+        padding: 30px 20px;
+    }
+    
+    .mascot-content h3 {
+        font-size: 1.9rem;
+    }
+    
+    .mascot-intro {
+        font-size: 1rem;
+    }
+    
+    .feature-item {
+        padding: 15px;
+    }
+    
+    .feature-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .about-text h2 {
+        font-size: 1.7rem;
+    }
+    
+    .visual-card {
+        padding: 30px 20px;
+    }
+    
+    .visual-icon {
+        font-size: 2.8rem;
+    }
+    
+    .mascot-placeholder {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .mascot-placeholder i {
+        font-size: 2.5rem;
+    }
+    
+    .feature-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .feature-icon {
+        margin: 0 auto;
+    }
+}
+
+.vision-mission-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(106, 133, 92, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(106, 133, 92, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.section-header h2 {
+    font-family: var(--heading-font);
+    font-size: 3rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    letter-spacing: 0.3rem;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.section-divider {
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    margin: 0 auto;
+    position: relative;
+}
+
+.section-divider::before,
+.section-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: var(--accent-color);
+    border-radius: 50%;
+}
+
+.section-divider::before {
+    left: -15px;
+}
+
+.section-divider::after {
+    right: -15px;
+}
+
+.vision-mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-bottom: 100px;
+}
+
+.vision-mission-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(106, 133, 92, 0.2);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    position: relative;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    overflow: hidden;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.vision-mission-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(106, 133, 92, 0.05) 50%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.vision-mission-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--accent-color);
+    box-shadow: 0 20px 40px rgba(106, 133, 92, 0.2);
+}
+
+.vision-mission-card:hover::before {
+    opacity: 1;
+}
+
+.card-icon {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 2;
+    transition: all 0.4s ease;
+}
+
+.vision-mission-card:hover .card-icon {
+    transform: scale(1.1) rotateY(360deg);
+    color: #ffffff;
+}
+
+.card-content {
+    position: relative;
+    z-index: 2;
+}
+
+.card-content h3 {
+    font-family: var(--heading-font);
+    font-size: 2rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+}
+
+.card-content p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.8;
+    letter-spacing: 0.02rem;
+}
+
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(106, 133, 92, 0.1), rgba(44, 58, 32, 0.1));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-radius: 20px;
+}
+
+.vision-mission-card:hover .card-overlay {
+    opacity: 1;
+}
+
+/* Values Section */
+.values-section {
+    text-align: center;
+}
+
+.values-title {
+    font-family: var(--heading-font);
+    font-size: 2.5rem;
+    color: var(--text-light);
+    margin-bottom: 60px;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.value-item {
+    padding: 30px 20px;
+    transition: all 0.3s ease;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid transparent;
+}
+
+.value-item:hover {
+    transform: translateY(-5px);
+    background: rgba(106, 133, 92, 0.1);
+    border-color: rgba(106, 133, 92, 0.3);
+}
+
+.value-icon {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.value-item:hover .value-icon {
+    transform: scale(1.1);
+    color: #ffffff;
+}
+
+.value-item h4 {
+    font-family: var(--heading-font);
+    font-size: 1.3rem;
+    color: var(--text-light);
+    margin-bottom: 15px;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+}
+
+.value-item p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+.unitree{
+    height: 85%;
+    width: 85%;
+    background-image: url('unitree.ong');
+    z-index: 1;
+}
+.unitree:hover{
+    width: 125%;
+    height: 125%;
+    transition: all ease-in-out 0.25s;
+    filter: brightness(120%);
+    filter: saturate(110%);
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .vision-mission-section {
+        padding: 60px 0;
+    }
+    
+    .section-header {
+        margin-bottom: 50px;
+    }
+    
+    .section-header h2 {
+        font-size: 2.2rem;
+        letter-spacing: 0.2rem;
+    }
+    
+    .vision-mission-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-bottom: 60px;
+    }
+    
+    .vision-mission-card {
+        padding: 30px 25px;
+        min-height: 250px;
+    }
+    
+    .card-icon {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+    
+    .card-content h3 {
+        font-size: 1.6rem;
+        margin-bottom: 15px;
+    }
+    
+    .card-content p {
+        font-size: 1rem;
+    }
+    
+    .values-title {
+        font-size: 2rem;
+        margin-bottom: 40px;
+        letter-spacing: 0.15rem;
+    }
+    
+    .values-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+    
+    .value-item {
+        padding: 25px 15px;
+    }
+    
+    .value-icon {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    
+    .value-item h4 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+    
+    .value-item p {
+        font-size: 0.9rem;
+    }
+    body{
+        text-align: center;
+    }
+    h2{
+    text-align: center;
+}
+h3{
+    text-align: center;
+}
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .section-header h2 {
+        font-size: 1.8rem;
+        letter-spacing: 0.1rem;
+    }
+    
+    .vision-mission-card {
+        padding: 25px 20px;
+        min-height: 220px;
+    }
+    
+    .card-content h3 {
+        font-size: 1.4rem;
+    }
+    
+    .card-content p {
+        font-size: 0.95rem;
+    }
+    
+    .values-title {
+        font-size: 1.7rem;
+        margin-bottom: 35px;
+    }
+    
+    .values-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .value-item {
+        padding: 20px 15px;
+    }
+    body{
+        text-align: center;
+    }
+    h2{
+    text-align: center;
+}
+h3{
+    text-align: center;
+}
+}
+
+/* Animation for scroll reveal */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.vision-mission-card,
+.value-item {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.vision-mission-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.value-item:nth-child(2) { animation-delay: 0.1s; }
+.value-item:nth-child(3) { animation-delay: 0.2s; }
+.value-item:nth-child(4) { animation-delay: 0.3s; }
+
+    </style>
+</head>
+<body id="body">
+    <nav id="main-nav">
+        <a href="index.html" class="navbar-logo">
+            <img src="logo.png" alt="Unity in Action Logo"> Unity In Action
+        </a>
+        <button class="navbar-toggle" aria-label="Toggle Navigation Menu">&#9776;</button>
+        <ul class="navbar-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="timeline.html">Past Projects</a></li>
+            <li><a href="works.html">Scientific Research</a></li>
+            <li><a href="members.html">Members</a></li>
+        </ul>
+    </nav>
+    
+    <header id="main-header">
+        <div class="header-content">
+            <h1>Unity In Action</h1>
+            <p>Our Home, Our Duty: Unity In Action!</p>
+            <br>
+            <a href="timeline.html" class="btn">Discover Our Projects</a>
+        </div>
+    </header>
+    <section id="about-unity" class="about-unity-section">
+    <div class="container">
+        <div class="about-content-wrapper">
+            <div class="about-main">
+                <div class="about-text">
+                    <div class="section-tag">Who We Are</div>
+                    <h2>What is Unity in Action?</h2>
+                    <p class="lead-text">Unity in Action (UiA), founded in 2023, is a student-led organization committed to promoting environmental sustainability and social welfare in Tangerang Selatan.</p>
+                    <p>Through various initiatives, including awareness campaigns, community service projects, and collaborations with local organizations, UiA empowers individuals to take meaningful action. With a focus on education, advocacy, and hands-on involvement, UiA strives to create a lasting impact and inspire a sense of responsibility toward a better, more sustainable future.</p>
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Active Members</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">25+</div>
+                            <div class="stat-label">Projects Completed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">10+</div>
+                            <div class="stat-label">Scientific Researches</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="visual-card">
+                        <div class="visual-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Community Driven</h4>
+                        <p>Empowering local communities through collaborative environmental action</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mascot-section">
+                <div class="mascot-visual">
+                    <div class="mascot-container">
+                        <div class="mascot-placeholder">
+                            <img src="unitree.png" class="unitree">
+                            <div class="mascot-glow"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mascot-content">
+                    <div class="section-tag">Meet Our Symbol</div>
+                    <h3>Our Mascot</h3>
+                    <p class="mascot-intro">Unity in Action's mascot, known as the Unitree, is an apple tree with a bright smile plastered on its stem and sturdy branches acting as its arms. This little creature represents the environment as a whole, happy to be fostered and taken care of as our community's main goal. On its head are three apples, which represent unity and the perfect balance between caring for the environment, thinking about ways to help, and finally, doing things to help the environment.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+<br><br><br>
+    <div class="container">
+        <div class="section-header">
+            <h2>Our Vision & Mission</h2>
+            <div class="section-divider"></div>
+        </div>
+        
+        <div class="vision-mission-grid">
+
+            <div class="vision-mission-card vision-card">
+                <div class="card-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Our Vision</h3>
+                    <p>Nurturing a safe and habitable environment by creating a habit of sustainable living across individuals and communities.</p>
+                </div>
+                <div class="card-overlay"></div>
+            </div>
+            
+            <!-- Mission Card -->
+            <div class="vision-mission-card mission-card">
+                <div class="card-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Our Mission</h3>
+                    <p>To achieve our vision, Unity in Action is in pursuit of accomplishing various activities, ranging from afforestation to attending events, that will help in promoting the habit and knowledge of living a sustainable lifestyle across individuals and communities.</p>
+                </div>
+                <div class="card-overlay"></div>
+            </div>
+        </div>
+        
+        <!-- Values Section -->
+        <div class="values-section">
+            <h3 class="values-title">Our Core Values</h3>
+            <div class="values-grid">
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h4>Unity</h4>
+                    <p>Bringing people together for a common cause</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h4>Sustainability</h4>
+                    <p>Protecting our environment for future generations</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h4>Innovation</h4>
+                    <p>Creative solutions for complex challenges</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4>Compassion</h4>
+                    <p>Caring for our community and planet</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <footer class="footer">
+        <div class="footer-col">
+            <h4>Our Media</h4>
+            <div class="social-links">
+                <a href="https://www.instagram.com/unityinaction.id?igsh=Zm16eGR1NTQ2OTQ5" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@unityinaction.id?_t=ZS-8xJONGTydNq&_r=1" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <br>
+            <p class="copyright">UnityinAction.hub@gmail.com</p>
+        </div>
+    </footer>
+
+    <script>
+        const navbarToggle = document.querySelector('.navbar-toggle');
+        const navbarLinks = document.querySelector('.navbar-links');
+        navbarToggle.addEventListener('click', () => {
+        navbarLinks.classList.toggle('active');
+        });
+        
+
+        document.querySelectorAll('.navbar-links a').forEach(link => {
+            link.addEventListener('click', () => navbarLinks.classList.remove('active'));
+        });
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+        
+        // Close navbar when clicking links
+        document.querySelectorAll('.navbar-links a').forEach(link => {
+            link.addEventListener('click', () => navbarLinks.classList.remove('active'));
+        });
+
+        // Close navbar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navbarLinks.classList.contains('active') && 
+                !e.target.closest('.navbar-links') && 
+                !e.target.closest('.navbar-toggle')) {
+                navbarLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

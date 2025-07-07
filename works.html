@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UiA | Scientific Research</title>
+    <link rel="shortcut icon" href="logo-nt.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #333;
+            --accent-color: #6a855c;
+            --text-light: #ffffff;
+            --text-dark: #24262b;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+            --shadow-normal: 0 4px 8px rgba(0, 0, 0, 0.2);
+            --shadow-large: 0 4px 20px rgba(255, 255, 255, 0.2);
+            --heading-font: 'Playfair Display', serif;
+            --body-font: 'Montserrat', sans-serif;
+            --nav-font: 'Raleway', sans-serif;
+            --green-text: #171b0a;
+            --dark-green: #18230f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body::-webkit-scrollbar {
+        display: none;
+        }
+        body {
+            font-family: var(--body-font);
+            overflow-x: hidden;
+            line-height: 1.6;
+            letter-spacing: 0.02rem;
+            background-color: black;
+            color: var(--text-light);
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+            box-shadow: var(--shadow-normal);
+            font-family: var(--nav-font);
+            letter-spacing: 0.15rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        nav.scrolled {
+            height: 70px;
+            background-color: var(--dark-green);
+        }
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+            font-family: var(--nav-font);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 0.25rem;
+        }
+
+        .navbar-logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .navbar-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            text-align: center;
+        }
+
+        .navbar-links li {
+            margin: 0 15px;
+        }
+
+        .navbar-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color var(--transition-normal);
+            display: block;
+        }
+
+        .navbar-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .navbar-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Header */
+        #main-header {
+            width: 100%;
+            height: 60vh;
+            background: url('banner-uia.png') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-align: center;
+            position: relative;
+            user-select: none;
+        }
+
+        #main-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 1rem;
+            width: 100%;
+        }
+
+        .header-content h1 {
+            font-size: 3rem;
+            margin: 0 0 1rem;
+            font-weight: bold;
+            font-family: var(--heading-font);
+            letter-spacing: 0.4rem;
+        }
+
+        .header-content p {
+            font-size: 1.25rem;
+            margin: 0;
+            font-family: var(--nav-font);
+            letter-spacing: 0.25rem;
+        }
+        .footer {
+            background-color: var(--dark-green);
+            padding: 40px 0;
+            text-align: center;
+            filter: blur(50%);
+        }
+        .footer-col h4 {
+            font-size: 20px;
+            color: #ffffff;
+            text-transform: capitalize;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        .footer-col h4::after {
+            content: '';
+            background-color: var(--accent-color);
+            height: 2px;
+            width: 50px;
+            display: block;
+            margin: 15px auto 20px;
+        }
+        .footer-col .social-links a {
+            display: inline-block;
+            height: 45px;
+            width: 45px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 0 10px 10px 0;
+            text-align: center;
+            line-height: 45px;
+            border-radius: 50%;
+            color: #ffffff;
+            transition: all 0.5s ease;
+        }
+        .footer-col .social-links a:hover {
+            color: #24262b;
+            background-color: #ffffff;
+            transform: scale(1.2);
+        }
+        .copyright {
+            font-size: 0.85rem;
+            color: #888888;
+            text-align: center;
+        }
+        .accent{
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links {
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                display: none;
+                padding: 0;
+                margin: 0;
+                z-index: 1000;
+                box-shadow: var(--shadow-normal);
+            }
+
+            .navbar-links.active {
+                display: flex;
+            }
+
+            .navbar-links li {
+                margin: 0;
+                width: 100%;
+                border-bottom: 1px solid #444;
+            }
+
+            .navbar-links li a {
+                display: block;
+                padding: 15px;
+                text-align: center;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .navbar-logo {
+                font-size: 1.2rem;
+            }
+
+            .navbar-logo img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .header-content h1 {
+                font-size: 2rem;
+            }
+
+            .header-content p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-content h1 {
+                font-size: 1.7rem;
+            }
+
+            #main-header {
+                height: 40vh;
+            }
+
+            .footer-col .social-links a {
+                height: 35px;
+                width: 35px;
+                line-height: 35px;
+                margin: 0 5px 5px 0;
+            }
+            .footer { padding: 30px 0; }
+            .footer-col h4 {
+                margin-bottom: 15px;
+                font-size: 18px;
+            }
+        }
+        .research-overview {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #0a0f05 0%, #1a2912 50%, #0a0f05 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.research-overview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(106, 133, 92, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(106, 133, 92, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.overview-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.overview-title {
+    font-family: var(--heading-font);
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(45deg, #ffffff, var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(106, 133, 92, 0.3);
+    letter-spacing: 0.3rem;
+}
+
+.overview-subtitle {
+    font-size: 1.4rem;
+    color: var(--accent-color);
+    margin-bottom: 3rem;
+    font-weight: 300;
+    letter-spacing: 0.15rem;
+    font-family: var(--nav-font);
+}
+
+.overview-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #e0e0e0;
+    max-width: 800px;
+    margin: 0 auto 4rem auto;
+    padding: 0 2rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid rgba(106, 133, 92, 0.2);
+    backdrop-filter: blur(10px);
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    transition: left 0.6s ease;
+}
+
+.stat-item:hover::before {
+    left: 100%;
+}
+
+.stat-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(106, 133, 92, 0.2);
+    border-color: var(--accent-color);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    font-family: var(--heading-font);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #cccccc;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
+
+/* Research Sections */
+.research-section {
+    padding: 100px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.research-section:nth-child(odd) {
+    background: linear-gradient(135deg, #000000 0%, #0f1508 100%);
+}
+
+.research-section:nth-child(even) {
+    background: linear-gradient(135deg, #0f1508 0%, #1a2912 100%);
+}
+
+.research-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.research-content {
+    position: relative;
+    z-index: 2;
+}
+
+.research-title {
+    font-family: var(--heading-font);
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    letter-spacing: 0.2rem;
+    position: relative;
+}
+
+.research-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-color), transparent);
+}
+
+.research-description {
+    font-size: 1.1rem;
+    color: #cccccc;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+}
+
+.research-points {
+    list-style: none;
+    padding: 0;
+}
+
+.research-point {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    border-left: 3px solid var(--accent-color);
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.research-point::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(106, 133, 92, 0.1), transparent);
+    transition: left 0.8s ease;
+}
+
+.research-point:hover::before {
+    left: 100%;
+}
+
+.research-point:hover {
+    transform: translateX(10px);
+    background: rgba(106, 133, 92, 0.1);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.point-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, var(--accent-color), #8fb475);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    font-size: 1.2rem;
+    color: white;
+    position: relative;
+    z-index: 2;
+}
+
+.point-text {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.point-title {
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 0.3rem;
+    font-size: 1.1rem;
+}
+
+.point-description {
+    color: #aaaaaa;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.research-visual {
+    position: relative;
+    height: 65%;
+    border-radius: 20px;
+    overflow: hidden;
+    background: linear-gradient(45deg, #1a2912, #2a3922);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(106, 133, 92, 0.3);
+}
+
+.visual-placeholder {
+    width: 80%;
+    height: 90%;
+    background-image: url(placeholder.png);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(106, 133, 92, 0.2);
+}
+.visual-placeholder-1 {
+    width: 80%;
+    height: 90%;
+    background-image: url(placeholder.png);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(106, 133, 92, 0.2);
+}
+
+/* Floating Animation */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.research-visual::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(106, 133, 92, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    top: 20%;
+    left: 10%;
+    animation: float 6s ease-in-out infinite;
+}
+
+.research-visual::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, rgba(106, 133, 92, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    bottom: 20%;
+    right: 15%;
+    animation: float 4s ease-in-out infinite reverse;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+    .research-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+    }
+    
+    .research-visual {
+        height: 300px;
+        order: -1;
+    }
+    
+    .overview-title {
+        font-size: 2.8rem;
+    }
+    
+    .research-title {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .research-section {
+        padding: 60px 20px;
+    }
+    
+    .research-overview {
+        padding: 60px 20px;
+    }
+    
+    .overview-title {
+        font-size: 2.2rem;
+    }
+    
+    .research-title {
+        font-size: 2rem;
+    }
+    
+    .research-point {
+        flex-direction: column;
+        text-align: left;
+    }
+    
+    .point-icon {
+        margin-bottom: 1rem;
+        margin-right: 0;
+        align-self: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .overview-title {
+        font-size: 1.8rem;
+    }
+    
+    .research-title {
+        font-size: 1.6rem;
+    }
+    
+    .research-container {
+        gap: 2rem;
+    }
+    
+    .research-visual {
+        height: 250px;
+    }
+}
+a{
+    text-decoration: none;
+}
+    </style>
+</head>
+<body>
+    <nav id="main-nav">
+        <a href="index.html" class="navbar-logo">
+            <img src="logo.png" alt="Verstappen Motors Logo"><p>Unity In Action</p>
+        </a>
+        <button class="navbar-toggle" aria-label="Toggle Navigation Menu">&#9776;</button>
+        <ul class="navbar-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="timeline.html">Past Projects</a></li>
+            <li><a href="works.html">Scientific Research</a></li>
+            <li><a href="members.html">Members</a></li>
+        </ul>
+    </nav>
+    
+    <header id="main-header">
+        <div class="header-content">
+            <h1>Our Scientific Research</h1>
+            <p class="accent">United Minds of Future Inventors</p>
+        </div>
+    </header>
+
+    <section class="research-overview">
+    <div class="overview-container">
+        <h2 class="overview-title">Where Curiosity Meets Discovery</h2>
+        <p class="overview-description">
+            Welcome to the Research section of our website. Here, you will find an extensive archive of our past research, ranging from topics like environmental issues to eco-enzyme development. Explore our work to stay informed and contribute to the collective effort of safeguarding the planet for future generations.
+        </p>
+        
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Active Projects</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Research Hours</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Research Areas</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">25+</div>
+                <div class="stat-label">Team Members</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Research Section 1: Sustainable Energy Solutions -->
+<section class="research-section">
+    <div class="research-container">
+        <div class="research-content">
+            <h3 class="research-title">Our 2024 Researches</h3>
+            <p class="research-description">
+                In 2024, our team explored diverse innovations at the convergence of science, sustainability, and community well-being. From cleaner air to smarter materials, our research projects all aim to shape a greener, healthier future by addressing urgent global challenges with innovation and care.
+            </p>
+            
+            <ul class="research-points">
+                <a href="research-waste.html"><li class="research-point">
+                    <div class="point-icon">🚮</div>
+                    <div class="point-text">
+                        <div class="point-title">Waste Repurposing</div>
+                        <div class="point-description">Transforming trash into treasure, we investigate how everyday waste can be upcycled into valuable materials or energy sources, reducing environmental impact and promoting circular economies.</div>
+                    </div>
+                </li></a>
+                <a href="research-bioplastics.html"><li class="research-point">
+                    <div class="point-icon">🧫</div>
+                    <div class="point-text">
+                        <div class="point-title">Bioplastic & Materials</div>
+                        <div class="point-description">Our research also dives into the development of sustainable alternatives and biodegradable solutions to conventional plastics.</div>
+                    </div>
+                </li></a>
+                <a href="research-climate.html"><li class="research-point">
+                    <div class="point-icon">🌪️</div>
+                    <div class="point-text">
+                        <div class="point-title">Air & Climate</div>
+                        <div class="point-description">This type of research focuses on monitoring air quality and climate patterns while exploring practical solutions to reduce greenhouse gas emissions. It highlights the role of urban design, green technology, and lifestyle shifts in creating cleaner environments.</div>
+                    </div>
+                </li></a>
+                <a href="research-agriculture.html"><li class="research-point">
+                    <div class="point-icon">🌱</div>
+                    <div class="point-text">
+                        <div class="point-title">Soil & Agriculture</div>
+                        <div class="point-description">Combining traditional knowledge with modern science, this research enhances soil health, sustainable farming practices, and food security. </div>
+                    </div>
+                </li></a>
+                <a href="research-waterTreatment.html"><li class="research-point">
+                    <div class="point-icon">💧</div>
+                    <div class="point-text">
+                        <div class="point-title">Water Treatment</div>
+                        <div class="point-description">Clean water is a right, not a luxury. This research tests low-cost, scalable methods to purify and recycle water using a variety of methods, especially for underserved communities facing water access issues.</div>
+                    </div>
+                </li></a>
+                <a href="research-medicine.html"><li class="research-point">
+                    <div class="point-icon">💊</div>
+                    <div class="point-text">
+                        <div class="point-title">Natural Medicine</div>
+                        <div class="point-description">We also dive into the healing power of local herbs and botanicals. It combines ethnobotanical knowledge with laboratory testing to understand their efficacy in treating common ailments naturally and sustainably.</div>
+                    </div>
+                </li></a>
+            </ul>
+        </div>
+        
+        <div class="research-visual">
+            <div class="visual-placeholder">
+            </div>
+        </div>
+        
+    </div>
+</section>
+<section class="research-section">
+    <div class="research-container">
+        <div class="research-visual">
+            <div class="visual-placeholder">
+            </div>
+        </div>
+        
+        <div class="research-content">
+            <h3 class="research-title">Our 2025 Researches</h3>
+            <p class="research-description">
+                Our research projects continues to expand, in 2025, to focus on nature-based innovations that impact both people and the planet. We aim to develop sustainable alternatives and deepen our understanding of the natural world. Each project is a step toward a healthier, more resilient future.
+            </p>
+            
+            <ul class="research-points">
+                <a href="research-naturalDyes.html"><li class="research-point">
+                    <div class="point-icon">👖</div>
+                    <div class="point-text">
+                        <div class="point-title">Natural Dyes</div>
+                        <div class="point-description">A compilation of research papers exploring plant-based and eco-friendly alternatives to synthetic dyes for sustainable coloring.</div>
+                    </div>
+                </li></a>
+                 <a href="research-bioIndustry.html"><li class="research-point">
+                    <div class="point-icon">🏭</div>
+                    <div class="point-text">
+                        <div class="point-title">Bio-Industry</div>
+                        <div class="point-description">Where biology meets industry - this section provides access to research papers investigating the use of biological systems and organisms to develop sustainable solutions in agriculture, manufacturing, and energy.</div>
+                    </div>
+                </li></a>
+                 <a href="research-waterTreatment2.html"><li class="research-point">
+                    <div class="point-icon">🚰</div>
+                    <div class="point-text">
+                        <div class="point-title">Water Treatment</div>
+                        <div class="point-description">The grind for easy water accessibility never stops - once again, we continue to search for innovative, nature-based methods to purify and manage water while also focusing on affordability, efficiency, and environmental impact.</div>
+                    </div>
+                </li></a>
+                 <a href="research-plantScience.html"><li class="research-point">
+                    <div class="point-icon">🌿</div>
+                    <div class="point-text">
+                        <div class="point-title">Plant Science</div>
+                        <div class="point-description">A file of studies focusing on plant biology to improve growth, resilience, and productivity. Ultimately, plants are more than just living things - they possess secrets that help combat issues in the world of agriculture, medicine, environment, and many more.</div>
+                    </div>
+                </li></a>
+                 <a href="research-antimicrobials.html"><li class="research-point">
+                    <div class="point-icon">🛡️</div>
+                    <div class="point-text">
+                        <div class="point-title">Antimicrobials & Antioxidants</div>
+                        <div class="point-description">Identifying natural compounds that can fight harmful microbes and oxidative stress, with potential benefits for health, food preservation, and medicine.</div>
+                    </div>
+                </li></a>
+                 <a href="research-remedies.html"><li class="research-point">
+                    <div class="point-icon">🍄‍🟫</div>
+                    <div class="point-text">
+                        <div class="point-title">Natural Remedies</div>
+                        <div class="point-description">Research papers focusing on exploring traditional and modern uses of herbs and natural substances to promote wellness and treat health conditions.</div>
+                    </div>
+                </li></a>
+            </ul>
+        </div>
+    </div>
+</section>
+    <footer class="footer">
+        <div class="footer-col">
+            <h4>Our Media</h4>
+            <div class="social-links">
+                <a href="https://www.instagram.com/unityinaction.id?igsh=Zm16eGR1NTQ2OTQ5" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@unityinaction.id?_t=ZS-8xJONGTydNq&_r=1" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <br>
+            <p class="copyright">UnityinAction.hub@gmail.com</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation toggle functionality
+        const navbarToggle = document.querySelector('.navbar-toggle');
+        const navbarLinks = document.querySelector('.navbar-links');
+        
+        navbarToggle.addEventListener('click', () => {
+            navbarLinks.classList.toggle('active');
+        });
+        
+        document.querySelectorAll('.navbar-links a').forEach(link => {
+            link.addEventListener('click', () => navbarLinks.classList.remove('active'));
+        });
+        
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+        
+        // Close navbar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navbarLinks.classList.contains('active') && 
+                !e.target.closest('.navbar-links') && 
+                !e.target.closest('.navbar-toggle')) {
+                navbarLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

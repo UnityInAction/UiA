@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UiA | Members</title>
+    <link rel="shortcut icon" href="logo-nt.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #333;
+            --accent-color: #6a855c;
+            --text-light: #ffffff;
+            --text-dark: #24262b;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+            --shadow-normal: 0 4px 8px rgba(0, 0, 0, 0.2);
+            --shadow-large: 0 4px 20px rgba(255, 255, 255, 0.2);
+            --heading-font: 'Playfair Display', serif;
+            --body-font: 'Montserrat', sans-serif;
+            --nav-font: 'Raleway', sans-serif;
+            --green-color: #2c3a20;
+            --dark-green: #18230f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body::-webkit-scrollbar {
+        display: none;
+        }
+        body {
+            font-family: var(--body-font);
+            overflow-x: hidden;
+            line-height: 1.6;
+            letter-spacing: 0.02rem;
+            background-color: black;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+            box-shadow: var(--shadow-normal);
+            font-family: var(--nav-font);
+            letter-spacing: 0.15rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        nav.scrolled {
+            height: 70px;
+            background-color: var(--dark-green);
+        }
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+            font-family: var(--nav-font);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 0.25rem;
+        }
+
+        .navbar-logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .navbar-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            text-align: center;
+        }
+
+        .navbar-links li {
+            margin: 0 15px;
+        }
+
+        .navbar-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color var(--transition-normal);
+            display: block;
+        }
+
+        .navbar-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .navbar-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Header */
+        #main-header {
+            width: 100%;
+            height: 60vh;
+            background: url('banner-uia.png') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-align: center;
+            position: relative;
+            user-select: none;
+        }
+
+        #main-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 1rem;
+            width: 100%;
+        }
+
+        .header-content h1 {
+            font-size: 3rem;
+            margin: 0 0 1rem;
+            font-weight: bold;
+            font-family: var(--heading-font);
+            letter-spacing: 0.4rem;
+        }
+
+        .header-content p {
+            font-size: 1.25rem;
+            margin: 0;
+            font-family: var(--nav-font);
+            letter-spacing: 0.25rem;
+        }
+
+        .gallery-container {
+            position: relative;
+            height: 60vh;
+            width: 100%;
+            overflow: hidden;
+            touch-action: pan-y;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #image-track {
+            display: flex;
+            gap: 4vmin;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate3d(0%, -50%);
+            user-select: none;
+            transition: transform 0.3s ease;
+            backface-visibility: hidden;
+            perspective: 1000px;
+            will-change: transform;
+        }
+        #image-track > .image {
+            width: 40vmin;
+            height: 56vmin;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform var(--transition-normal);
+            box-shadow: var(--shadow-normal);
+            border-radius: 4px;
+            filter: brightness(75%);
+            will-change: object-position;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+
+        #image-track > .image:hover {
+            transform: scale(1.05);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.8;
+            transition: opacity 1s ease;
+            z-index: 100;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: var(--shadow-normal);
+            user-select: none;
+        }
+
+        .scroll-indicator i {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(0);
+            }
+            40% {
+                transform: translateX(-5px);
+            }
+            60% {
+                transform: translateX(5px);
+            }
+        }
+
+        .scroll-indicator.hidden {
+            opacity: 0;
+        }
+
+        .footer {
+            background-color: var(--dark-green);
+            padding: 40px 0;
+            text-align: center;
+            filter: blur(50%);
+        }
+        .footer-col h4 {
+            font-size: 20px;
+            color: #ffffff;
+            text-transform: capitalize;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        .footer-col h4::after {
+            content: '';
+            background-color: var(--accent-color);
+            height: 2px;
+            width: 50px;
+            display: block;
+            margin: 15px auto 20px;
+        }
+        .footer-col .social-links a {
+            display: inline-block;
+            height: 45px;
+            width: 45px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 0 10px 10px 0;
+            text-align: center;
+            line-height: 45px;
+            border-radius: 50%;
+            color: #ffffff;
+            transition: all 0.5s ease;
+        }
+        .footer-col .social-links a:hover {
+            color: #24262b;
+            background-color: #ffffff;
+            transform: scale(1.2);
+        }
+        .copyright {
+            font-size: 0.85rem;
+            color: #888888;
+            text-align: center;
+        }
+
+        /* Modal */
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0);
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            overflow: hidden;
+            padding: 10px;
+            opacity: 0;
+            transition: background-color 0.4s ease, opacity 0.4s ease;
+        }
+        .accent{
+            color: var(--accent-color);
+        }
+        #modal.active {
+            background-color: rgba(0, 0, 0, 0.9);
+            opacity: 1;
+        }
+
+        #modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 1rem;
+            transform: scale(0.8);
+            opacity: 0;
+            transition: transform var(--transition-slow), opacity var(--transition-slow);
+        }
+
+        #modal.active #modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        #modal-content img {
+            width: 100%;
+            max-height: 60vh;
+            box-shadow: var(--shadow-large);
+            object-fit: contain;
+            border-radius: 4px;
+            filter: brightness(85%);
+        }
+
+        #modal-description {
+            color: var(--text-light);
+            margin-top: 20px;
+            text-align: center;
+            overflow-y: auto;
+            max-height: 20vh;
+            padding: 0 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity var(--transition-slow) 0.2s, transform var(--transition-slow) 0.2s;
+            width: 100%;
+        }
+
+        #modal.active #modal-description {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0;
+            transform: rotate(-90deg);
+            transition: opacity var(--transition-normal), transform var(--transition-normal), color var(--transition-normal);
+            z-index: 10001;
+            padding: 10px;
+        }
+
+        #modal.active #close-modal {
+            opacity: 1;
+            transform: rotate(0);
+        }
+
+        #close-modal:hover {
+            color: red;
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links {
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                display: none;
+                padding: 0;
+                margin: 0;
+                z-index: 1000;
+                box-shadow: var(--shadow-normal);
+            }
+
+            .navbar-links.active {
+                display: flex;
+            }
+
+            .navbar-links li {
+                margin: 0;
+                width: 100%;
+                border-bottom: 1px solid #444;
+            }
+
+            .navbar-links li a {
+                display: block;
+                padding: 15px;
+                text-align: center;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .navbar-logo {
+                font-size: 1.2rem;
+            }
+
+            .navbar-logo img {
+                width: 30px;
+                height: 30px;
+            }
+
+            #image-track {
+                gap: 3vmin;
+            }
+
+            #image-track > .image {
+                width: 50vmin;
+                height: 80vmin;
+            }
+
+            .header-content h1 {
+                font-size: 2rem;
+            }
+
+            .header-content p {
+                font-size: 1rem;
+            }
+
+            .scroll-indicator {
+                font-size: 0.7rem;
+                padding: 6px 10px;
+                bottom: 10px;
+            }
+
+            .scroll-indicator span {
+                display: none;
+            }
+
+            .gallery-container {
+                height: 55vh;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #image-track {
+                gap: 2vmin;
+            }
+
+            #image-track > .image {
+                width: 50vmin;
+                height: 80vmin;
+            }
+
+            .header-content h1 {
+                font-size: 1.7rem;
+            }
+
+            #main-header {
+                height: 40vh;
+            }
+
+            .footer-col .social-links a {
+                height: 35px;
+                width: 35px;
+                line-height: 35px;
+                margin: 0 5px 5px 0;
+            }
+            .footer { padding: 30px 0; }
+            .footer-col h4 {
+                margin-bottom: 15px;
+                font-size: 18px;
+            }
+
+            .gallery-container {
+                height: 50vh;
+            }
+        }
+        
+        @media (pointer: coarse) {
+            #image-track > .image:hover {
+                transform: none;
+            }
+        }
+        .profiles-section {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2c3a20 100%);
+    padding: 80px 20px;
+    color: var(--text-light);
+}
+
+.section-title {
+    text-align: center;
+    font-family: var(--heading-font);
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+    color: var(--accent-color);
+    letter-spacing: 0.2rem;
+}
+
+.profile-grid {
+    display: grid;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.teacher-profile {
+    grid-template-columns: 1fr;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(106, 133, 92, 0.3);
+}
+
+.leaders-section {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.pics-section {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.builders-writers-section {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.profile-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(106, 133, 92, 0.2);
+    backdrop-filter: blur(5px);
+    width: 100%;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 10px 30px rgba(106, 133, 92, 0.2);
+}
+
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 20px;
+    border: 3px solid var(--accent-color);
+    transition: transform 0.3s ease;
+}
+
+.teacher-profile .profile-image {
+    width: 150px;
+    height: 150px;
+}
+
+.profile-image:hover {
+    transform: scale(1.05);
+}
+
+.profile-name {
+    font-family: var(--heading-font);
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: var(--text-light);
+}
+
+.profile-role {
+    color: var(--accent-color);
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.profile-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+}
+
+.section-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    margin: 60px 0;
+}
+
+@media (max-width: 768px) {
+    .section-title { font-size: 2rem; }
+    .profile-image { width: 100px; height: 100px; }
+    .teacher-profile .profile-image { width: 120px; height: 120px; }
+    .profile-name { font-size: 1.2rem; }
+    .profile-role { font-size: 1rem; }
+}
+    </style>
+</head>
+<body>
+    <nav id="main-nav">
+        <a href="index.html" class="navbar-logo">
+            <img src="logo.png" alt="Unity in Action Logo"><p>Unity In Action</p>
+        </a>
+        <button class="navbar-toggle" aria-label="Toggle Navigation Menu">&#9776;</button>
+        <ul class="navbar-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="timeline.html">Past Projects</a></li>
+            <li><a href="works.html">Scientific Research</a></li>
+            <li><a href="members.html">Members</a></li>
+        </ul>
+    </nav>
+    
+    <header id="main-header">
+        <div class="header-content">
+            <h1>Meet Our Members</h1>
+            <p class="accent">The Engineers of Change</p>
+        </div>
+    </header>
+    
+    <div class="gallery-container">
+        <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0" data-percentage="0">
+            <img class="image" src="team.jpg" draggable="false" data-description="Meet Our Whole Team" alt="UiA Members"/>
+            <img class="image" src="project.jpeg" draggable="false" data-description="Project Managers" alt="Project Management Team"/>
+            <img class="image" src="docum.jpg" draggable="false" data-description="Documentations Team" alt="Our Documentations Team"/>
+            <img class="image" src="pr.jpg" draggable="false" data-description="Public Relations Team" alt="Our Public Relations Team"/>
+            <img class="image" src="leader.JPG" draggable="false" data-description="Meet Our Leaders" alt="Our Leaders"/>
+            <img class="image" src="pic.jpg" draggable="false" data-description="Our Board of Directors" alt="The People in Charge"/>
+            <img class="image" src="creative.jpg" draggable="false" data-description="Creative Team" alt="Creative Team"/>
+            <img class="image" src="team.jpg" draggable="false" data-description="Meet Our Whole Team" alt="UiA Members"/>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-arrow-left"></i>
+            <span>Use Shift+Scroll or drag to navigate</span>
+            <i class="fas fa-arrow-right"></i>
+        </div>
+    </div>
+    <section class="profiles-section">
+    <h2 class="section-title">Our Team</h2>
+
+    <div class="profile-grid teacher-profile">
+        <img src="white.png" alt="Teacher" class="profile-image">
+        <h3 class="profile-name">Margaretha Maria Rosyati</h3>
+        <p class="profile-role">Team Advisor</p>
+        <p class="profile-description">"Leading these brilliant minds has been one of my greatest privileges. Their dedication to creating positive change through engineering innovation continues to inspire me every day. Together, we're building not just projects, but the future."</p>
+    </div>
+    
+    <div class="section-divider"></div>
+
+    <h3 class="section-title" style="font-size: 2rem;">Leadership</h3>
+    <div class="profile-grid leaders-section">
+        <div class="profile-card"><br>
+            <img src="white.png" alt="Team Leader" class="profile-image">
+            <h4 class="profile-name">Clarissa Abigail Chandra</h4>
+            <p class="profile-role">Team Leader</p>
+        </div>
+        <div class="profile-card"><br>
+            <img src="white.png" alt="Co-Leader" class="profile-image">
+            <h4 class="profile-name">Devina Benlee</h4>
+            <p class="profile-role">Co-Leader</p>
+        </div>
+    </div>
+    
+    <div class="section-divider"></div>
+
+    <h3 class="section-title" style="font-size: 2rem;">Project Coordinators</h3>
+    <div class="profile-grid pics-section">
+        <div class="profile-card"><br>
+            <img src="white.png" alt="PIC" class="profile-image">
+            <h4 class="profile-name">Bryant Azura Pang</h4>
+            <p class="profile-role">Research PIC</p>
+        </div>
+        <div class="profile-card"><br>
+            <img src="white.png" alt="PIC" class="profile-image">
+            <h4 class="profile-name">Shayna Sutandi</h4>
+            <p class="profile-role">Documentation PIC</p>
+        </div>
+        <div class="profile-card"><br>
+            <img src="white.png" alt="PIC" class="profile-image">
+            <h4 class="profile-name">Megan Emily Halim</h4>
+            <p class="profile-role">Events PIC</p>
+        </div>
+        <div class="profile-card"><br>
+            <img src="white.png" alt="PIC" class="profile-image">
+            <h4 class="profile-name">Mischka Nikola Darnathan</h4>
+            <p class="profile-role">Events PIC</p>
+        </div>
+        <div class="profile-card"><br>
+            <img src="white.png" alt="PIC" class="profile-image">
+            <h4 class="profile-name">Aurelia Leovaldi</h4>
+            <p class="profile-role">Design PIC</p>
+        </div>
+        <div class="profile-card"><br>
+            <img src="white.png" alt="PIC" class="profile-image">
+            <h4 class="profile-name">Vereen Rheinia Jancenwiguna</h4>
+            <p class="profile-role">Public Relations PIC</p>
+        </div>
+    </div>
+    
+    <div class="section-divider"></div>
+
+    <h3 class="section-title" style="font-size: 2rem;">Web Builder Team</h3>
+    <div class="profile-grid builders-writers-section">
+        <div class="profile-card"><br>
+            <img src="white.png" alt="Developer" class="profile-image">
+            <h4 class="profile-name">Albertus Surya Ananta</h4>
+            <p class="profile-role">Lead Web Developer</p>
+        </div>
+        <div class="profile-card"><br>
+            <img src="white.png" alt="Developer" class="profile-image">
+            <h4 class="profile-name">Nathanael Anthony Haposan Pasaribu</h4>
+            <p class="profile-role">Web Developer</p>
+        </div>
+        <div class="profile-card"><br>
+            <img src="white.png" alt="Developer" class="profile-image">
+            <h4 class="profile-name">Rhein Miracle Emmanuelle</h4>
+            <p class="profile-role">Web Developer</p>
+        </div>
+        <div class="profile-card"><br>
+            <img src="white.png" alt="Developer" class="profile-image">
+            <h4 class="profile-name">Audrich Brandon Alexand</h4>
+            <p class="profile-role">Web Developer</p>
+        </div>
+    </div>
+    <div class="section-divider"></div>
+
+<h3 class="section-title" style="font-size: 2rem;">Web Design Team</h3>
+<div class="profile-grid builders-writers-section">
+    <div class="profile-card"><br>
+        <img src="white.png" alt="Web Designer" class="profile-image">
+        <h4 class="profile-name">Aurelia Leovaldi</h4>
+        <p class="profile-role">Lead Web Designer</p>
+    </div>
+    <div class="profile-card"><br>
+        <img src="white.png" alt="Web Designer" class="profile-image">
+        <h4 class="profile-name">Frederick Raoul Gunawan</h4>
+        <p class="profile-role">Web Designer</p>
+    </div>
+    <div class="profile-card"><br>
+        <img src="white.png" alt="Web Designer" class="profile-image">
+        <h4 class="profile-name">Jennifer Angelina Gunawan</h4>
+        <p class="profile-role">Web Designer</p>
+    </div>
+    <div class="profile-card"><br>
+        <img src="white.png" alt="Web Designer" class="profile-image">
+        <h4 class="profile-name">Felicia Roselind Hartanto</h4>
+        <p class="profile-role">Web Designer</p>
+    </div>
+    <div class="profile-card"><br>
+        <img src="white.png" alt="Web Designer" class="profile-image">
+        <h4 class="profile-name">Keira Kona Mokalu</h4>
+        <p class="profile-role">Web Designer</p>
+    </div>
+    <div class="profile-card"><br>
+        <img src="white.png" alt="Web Designer" class="profile-image">
+        <h4 class="profile-name">Carolus Dharma Harjuna</h4>
+        <p class="profile-role">Web Designer</p>
+    </div>
+    <div class="profile-card"><br>
+        <img src="white.png" alt="Web Designer" class="profile-image">
+        <h4 class="profile-name">Audrey Michaila Winata</h4>
+        <p class="profile-role">Content Writer</p>
+    </div>
+    <div class="profile-card"><br>
+        <img src="white.png" alt="Web Designer" class="profile-image">
+        <h4 class="profile-name">Victoria Lorraine Wibowo</h4>
+        <p class="profile-role">Content Writer</p>
+    </div>
+</div>
+</section>
+    <footer class="footer">
+        <div class="footer-col">
+            <h4>Our Media</h4>
+            <div class="social-links">
+                <a href="https://www.instagram.com/unityinaction.id?igsh=Zm16eGR1NTQ2OTQ5" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@unityinaction.id?_t=ZS-8xJONGTydNq&_r=1" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <br>
+            <p class="copyright">UnityinAction.hub@gmail.com</p>
+        </div>
+    </footer>
+    
+    <div id="modal">
+        <div id="modal-content">
+            <button id="close-modal" aria-label="Close modal">&times;</button>
+            <img id="modal-image" src="" alt="Modal image">
+            <div id="modal-description"></div>
+        </div>
+    </div>
+    
+    <script>
+        // DOM Elements
+        const navbarToggle = document.querySelector('.navbar-toggle');
+        const navbarLinks = document.querySelector('.navbar-links');
+        const track = document.getElementById("image-track");
+        const modal = document.getElementById("modal");
+        const modalImage = document.getElementById("modal-image");
+        const modalDescription = document.getElementById("modal-description");
+        const closeModal = document.getElementById("close-modal");
+        const scrollIndicator = document.querySelector(".scroll-indicator");
+        const galleryContainer = document.querySelector('.gallery-container');
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        // Initial center position
+        window.addEventListener('DOMContentLoaded', () => {
+            // Initialize track position to center
+            const initialPercentage = -50;
+            track.dataset.percentage = initialPercentage;
+            track.dataset.prevPercentage = initialPercentage;
+            
+            requestAnimationFrame(() => {
+                applyTrackTransform(initialPercentage);
+            });
+            
+            if (isTouchDevice) {
+                const span = scrollIndicator.querySelector('span');
+                if (span) span.textContent = "Swipe to navigate";
+            }
+        });
+        
+
+        const throttle = (func, limit) => {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            };
+        };
+        
+        // Navbar toggle
+        navbarToggle.addEventListener('click', () => {
+            navbarLinks.classList.toggle('active');
+        });
+        
+        // Close navbar when clicking links
+        document.querySelectorAll('.navbar-links a').forEach(link => {
+            link.addEventListener('click', () => navbarLinks.classList.remove('active'));
+        });
+        
+        // Apply track transform with improved animation
+        const applyTrackTransform = (percentage) => {
+            const duration = window.innerWidth <= 768 ? 800 : 1200;
+            
+            track.animate(
+                { transform: `translate(${percentage}%, -50%)` },
+                { duration, fill: "forwards", easing: "ease-out" }
+            );
+            track.style.transform = `translate(${percentage}%, -50%)`;
+            
+            for (const image of track.getElementsByClassName("image")) {
+                image.animate(
+                    { objectPosition: `${100 + percentage}% center` },
+                    { duration, fill: "forwards", easing: "ease-out" }
+                );
+                image.style.objectPosition = `${100 + percentage}% center`;
+            }
+        };
+        
+        // Handle mouse/touch events
+        const handleOnDown = (e) => {
+            if (!modal.classList.contains('active')) {
+                track.dataset.mouseDownAt = e.clientX || (e.touches && e.touches[0].clientX);
+            }
+        };
+        
+        const handleOnUp = () => {
+            track.dataset.mouseDownAt = "0";
+            track.dataset.prevPercentage = track.dataset.percentage;
+        };
+        
+        const handleOnMove = throttle((e) => {
+            if (track.dataset.mouseDownAt === "0" || modal.classList.contains('active')) return;
+            
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            if (!clientX) return;
+            
+            const mouseDelta = parseFloat(track.dataset.mouseDownAt) - clientX;
+            const maxDelta = window.innerWidth / 2;
+            const sensitivityFactor = e.type === "touchmove" ? 0.8 : 1;
+            const percentage = (mouseDelta / maxDelta) * -100 * sensitivityFactor;
+            const nextPercentage = Math.max(Math.min(parseFloat(track.dataset.prevPercentage) + percentage, 0), -100);
+            
+            track.dataset.percentage = nextPercentage;
+            applyTrackTransform(nextPercentage);
+            
+            if (!scrollIndicator.classList.contains('hidden')) {
+                setTimeout(() => {
+                    scrollIndicator.classList.add('hidden');
+                }, 2000);
+            }
+        }, 16);  // ~60fps
+        
+        // Wheel event handler with improved smoothness
+        const handleWheel = throttle((e) => {
+            if (modal.classList.contains('active')) return;
+            
+            if (e.deltaX !== 0 || e.shiftKey) {
+                e.preventDefault();
+                
+                const currentPercentage = parseFloat(track.dataset.percentage) || 0;
+                const scrollSensitivity = window.innerWidth <= 768 ? 0.5 : 0.3;
+                const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+                let nextPercentage = currentPercentage - (delta * scrollSensitivity);
+                nextPercentage = Math.max(Math.min(nextPercentage, 0), -100);
+                
+                track.dataset.percentage = nextPercentage;
+                track.dataset.prevPercentage = nextPercentage;
+                
+                applyTrackTransform(nextPercentage);
+                
+                if (!scrollIndicator.classList.contains('hidden')) {
+                    setTimeout(() => {
+                        scrollIndicator.classList.add('hidden');
+                    }, 2000);
+                }
+            }
+        }, 16);  // ~60fps
+        
+        // Modal functions with improved animations
+        const openModal = (image) => {
+            modalImage.src = image.src;
+            modalImage.alt = image.alt || "Gallery image";
+            modalDescription.textContent = image.dataset.description || "Image description not available.";
+            modal.style.display = "flex";
+            
+            // Force reflow to ensure smooth animation
+            void modal.offsetWidth;
+            
+            setTimeout(() => modal.classList.add('active'), 10);
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        };
+        
+        const closeModalWithTransition = () => {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = "none";
+                document.body.style.overflow = ''; // Restore scrolling
+            }, 400);
+        };
+        
+        // Event Listeners with passive option for better performance
+        track.addEventListener("mousedown", handleOnDown);
+        track.addEventListener("touchstart", handleOnDown, { passive: true });
+        window.addEventListener("mouseup", handleOnUp);
+        window.addEventListener("touchend", handleOnUp);
+        window.addEventListener("mousemove", handleOnMove);
+        window.addEventListener("touchmove", (e) => {
+            if (track.dataset.mouseDownAt !== "0") {
+                e.preventDefault();
+                handleOnMove(e);
+            }
+        }, { passive: false });
+        
+        galleryContainer.addEventListener('wheel', handleWheel, { passive: false });
+        
+        document.querySelectorAll(".image").forEach(image => {
+            image.addEventListener("click", () => openModal(image));
+        });
+        
+        closeModal.addEventListener("click", closeModalWithTransition);
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) closeModalWithTransition();
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModalWithTransition();
+                return;
+            }
+            
+            if (modal.classList.contains('active')) return;
+            
+            const rect = galleryContainer.getBoundingClientRect();
+            const isInView = (rect.top <= window.innerHeight && rect.bottom >= 0);
+            if (!isInView) return;
+            
+            const currentPercentage = parseFloat(track.dataset.percentage) || 0;
+            let nextPercentage = currentPercentage;
+            const moveAmount = window.innerWidth <= 768 ? 15 : 10;
+            
+            if (e.key === 'ArrowLeft') {
+                nextPercentage = Math.min(currentPercentage + moveAmount, 0);
+                e.preventDefault();
+            } else if (e.key === 'ArrowRight') {
+                nextPercentage = Math.max(currentPercentage - moveAmount, -100);
+                e.preventDefault();
+            } else {
+                return;
+            }
+            
+            track.dataset.percentage = nextPercentage;
+            track.dataset.prevPercentage = nextPercentage;
+            applyTrackTransform(nextPercentage);
+            
+            if (!scrollIndicator.classList.contains('hidden')) {
+                setTimeout(() => scrollIndicator.classList.add('hidden'), 2000);
+            }
+        });
+        
+        // Hide scroll indicator after initial display
+        setTimeout(() => scrollIndicator.classList.add('hidden'), 5000);
+        
+        // Close navbar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navbarLinks.classList.contains('active') && 
+                !e.target.closest('.navbar-links') && 
+                !e.target.closest('.navbar-toggle')) {
+                navbarLinks.classList.remove('active');
+            }
+        });
+        
+        // Handle resize and orientation change
+        const handleResize = throttle(() => {
+            const currentPercentage = parseFloat(track.dataset.percentage) || 0;
+            applyTrackTransform(currentPercentage);
+            
+            scrollIndicator.classList.remove('hidden');
+            setTimeout(() => scrollIndicator.classList.add('hidden'), 3000);
+        }, 250);
+        
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('orientationchange', handleResize);
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
