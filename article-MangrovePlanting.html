@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>UiA | Planting Trees, Saving Lives</title>
+
+    <link rel="shortcut icon" href="logo-nt.png" type="image/x-icon" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary-color: #333;
+        --accent-color: #6a855c;
+        --text-light: #ffffff;
+        --text-dark: #24262b;
+        --transition-normal: 0.3s ease;
+        --transition-slow: 0.5s ease;
+        --shadow-normal: 0 4px 8px rgba(0, 0, 0, 0.2);
+        --shadow-large: 0 4px 20px rgba(255, 255, 255, 0.2);
+        --heading-font: "Playfair Display", serif;
+        --body-font: "Montserrat", sans-serif;
+        --nav-font: "Raleway", sans-serif;
+        --green-text: #171b0a;
+        --dark-green: #18230f;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body::-webkit-scrollbar {
+        display: none;
+      }
+
+      body {
+        font-family: var(--body-font);
+        overflow-x: hidden;
+        line-height: 1.6;
+        letter-spacing: 0.02rem;
+        background-color: black;
+        color: var(--text-light);
+      }
+
+      /* Navigation */
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 1000;
+        box-shadow: var(--shadow-normal);
+        font-family: var(--nav-font);
+        letter-spacing: 0.15rem;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+      }
+
+      nav.scrolled {
+        height: 70px;
+        background-color: var(--dark-green);
+      }
+
+      .navbar-logo {
+        display: flex;
+        align-items: center;
+        color: var(--text-light);
+        font-family: var(--nav-font);
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-weight: bold;
+        letter-spacing: 0.25rem;
+      }
+
+      .navbar-logo img {
+        width: 40px;
+        height: 40px;
+        margin-right: 15px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .navbar-links {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+        text-align: center;
+      }
+
+      .navbar-links li {
+        margin: 0 15px;
+      }
+
+      .navbar-links a {
+        color: var(--text-light);
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: color var(--transition-normal);
+        display: block;
+      }
+
+      .navbar-links a:hover {
+        color: var(--accent-color);
+      }
+
+      .navbar-toggle {
+        display: none;
+        font-size: 1.5rem;
+        color: var(--text-light);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+      }
+
+      /* Header */
+
+      #main-header {
+        width: 100%;
+        height: 60vh;
+        background: url("banner-mangrove.jpg") no-repeat center center;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        user-select: none;
+      }
+
+      #main-header::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1;
+      }
+
+      /* Footer */
+
+      .footer {
+        background-color: var(--dark-green);
+        padding: 40px 0;
+        text-align: center;
+      }
+
+      .footer-col h4 {
+        font-size: 20px;
+        color: #ffffff;
+        text-transform: capitalize;
+        margin-bottom: 25px;
+        font-weight: 500;
+      }
+
+      .footer-col h4::after {
+        content: "";
+        background-color: var(--accent-color);
+        height: 2px;
+        width: 50px;
+        display: block;
+        margin: 15px auto 20px;
+      }
+
+      .footer-col .social-links a {
+        display: inline-block;
+        height: 45px;
+        width: 45px;
+        background-color: rgba(255, 255, 255, 0.2);
+        margin: 0 10px 10px 0;
+        text-align: center;
+        line-height: 45px;
+        border-radius: 50%;
+        color: #ffffff;
+        transition: all 0.5s ease;
+      }
+
+      .footer-col .social-links a:hover {
+        color: #24262b;
+        background-color: #ffffff;
+        transform: scale(1.2);
+      }
+
+      .copyright {
+        font-size: 0.85rem;
+        color: #888888;
+        text-align: center;
+      }
+
+      .accent {
+        color: var(--accent-color);
+      }
+
+      /* Article */
+
+      .article-container {
+        max-width: 1600px;
+        width: calc(100% - 40px);
+        margin: 20px auto 40px auto;
+        padding: 40px 40px;
+        background-color: #111;
+        border-radius: 10px;
+        box-shadow: var(--shadow-normal);
+        text-align: justify;
+      }
+
+      .article-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid var(--accent-color);
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .article-date {
+        color: var(--accent-color);
+        font-family: var(--nav-font);
+        font-size: 0.9rem;
+        letter-spacing: 0.1rem;
+      }
+
+      .article-category {
+        background-color: var(--accent-color);
+        color: var(--text-light);
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+      }
+
+      .article-title {
+        font-family: var(--heading-font);
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: var(--text-light);
+        line-height: 1.2;
+      }
+
+      .article-subtitle {
+        font-size: 1.2rem;
+        color: var(--accent-color);
+        margin-bottom: 30px;
+        font-style: italic;
+      }
+
+      .article-image {
+        width: 100%;
+        height: 600px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin: 30px 0;
+        box-shadow: var(--shadow-normal);
+        display: block;
+      }
+
+      .article-content {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #e0e0e0;
+      }
+
+      .article-content p {
+        margin-bottom: 20px;
+      }
+
+      .article-content h2 {
+        font-family: var(--heading-font);
+        color: var(--accent-color);
+        font-size: 1.8rem;
+        margin: 40px 0 20px 0;
+      }
+
+      .article-content h3 {
+        font-family: var(--heading-font);
+        color: var(--text-light);
+        font-size: 1.4rem;
+        margin: 30px 0 15px 0;
+      }
+
+      .article-content ul {
+        margin: 15px 0 25px 25px;
+      }
+
+      .article-content li {
+        margin-bottom: 10px;
+      }
+
+      .article-content a {
+        color: var(--accent-color);
+        text-decoration: none;
+        transition: color var(--transition-normal);
+        overflow-wrap: anywhere;
+      }
+
+      .article-content a:hover {
+        color: #a5bd96;
+        text-decoration: underline;
+      }
+
+      .quote-box {
+        background-color: var(--dark-green);
+        border-left: 4px solid var(--accent-color);
+        padding: 20px;
+        margin: 30px 0;
+        border-radius: 0 10px 10px 0;
+        font-style: italic;
+        font-size: 1.1rem;
+      }
+
+      .article-tags {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #333;
+      }
+
+      .tag {
+        display: inline-block;
+        background-color: rgba(106, 133, 92, 0.2);
+        color: var(--accent-color);
+        padding: 5px 12px;
+        margin: 5px 5px 5px 0;
+        border-radius: 15px;
+        font-size: 0.85rem;
+        border: 1px solid var(--accent-color);
+      }
+
+      .center {
+        text-align: center;
+      }
+
+      .left {
+        text-align: center;
+        font-style: italic;
+        font-size: 15px;
+      }
+
+      /* Responsive Design */
+
+      @media (max-width: 768px) {
+        .navbar-links {
+          flex-direction: column;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          width: 100%;
+          background-color: var(--primary-color);
+          display: none;
+          padding: 0;
+          margin: 0;
+          z-index: 1000;
+          box-shadow: var(--shadow-normal);
+        }
+
+        .navbar-links.active {
+          display: flex;
+        }
+
+        .navbar-links li {
+          margin: 0;
+          width: 100%;
+          border-bottom: 1px solid #444;
+        }
+
+        .navbar-links li a {
+          display: block;
+          padding: 15px;
+          text-align: center;
+        }
+
+        .navbar-toggle {
+          display: block;
+        }
+
+        .navbar-logo {
+          font-size: 1.2rem;
+        }
+
+        .navbar-logo img {
+          width: 30px;
+          height: 30px;
+        }
+
+        .article-container {
+          width: calc(100% - 20px);
+          margin: 10px auto 40px auto;
+          padding: 20px 30px;
+        }
+
+        .article-title {
+          font-size: 2rem;
+        }
+
+        .article-image {
+          height: 250px;
+        }
+
+        .article-meta {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .left {
+          font-size: 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        #main-header {
+          height: 40vh;
+        }
+
+        .article-container {
+          width: calc(100% - 20px);
+          padding: 20px;
+        }
+
+        .article-title {
+          font-size: 1.7rem;
+        }
+
+        .article-content {
+          font-size: 1rem;
+        }
+
+        .article-image {
+          height: 200px;
+        }
+
+        .footer {
+          padding: 30px 0;
+        }
+
+        .footer-col h4 {
+          margin-bottom: 15px;
+          font-size: 18px;
+        }
+
+        .footer-col .social-links a {
+          height: 35px;
+          width: 35px;
+          line-height: 35px;
+          margin: 0 5px 5px 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navigation -->
+
+    <nav id="main-nav">
+      <a href="index.html" class="navbar-logo">
+        <img src="logo.png" alt="Unity in Action Logo" />
+        <p>Unity in Action</p>
+      </a>
+
+      <button class="navbar-toggle" aria-label="Toggle Navigation Menu">
+        &#9776;
+      </button>
+
+      <ul class="navbar-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="timeline.html">Past Projects</a></li>
+        <li><a href="works.html">Scientific Research</a></li>
+        <li><a href="members.html">Members</a></li>
+      </ul>
+    </nav>
+
+    <!-- Header Banner -->
+
+    <header id="main-header"></header>
+
+    <!-- Main Article -->
+
+    <main>
+      <div class="article-container">
+        <div class="article-meta">
+          <span class="article-category">Environment</span>
+        </div>
+
+        <h1 class="article-title center">Planting Trees, Saving Lives</h1>
+
+        <!-- Main Article Image -->
+        <img
+          src="mangrove.JPG"
+          alt="Mangrove planting activity by Unity in Action volunteers"
+          class="article-image"
+        />
+
+        <div class="article-content">
+          <h2>Introduction</h2>
+
+          <p>
+            Indonesia, a country surrounded by 2 major oceans, the Indian and
+            Pacific Oceans, and the South China Sea. Being surrounded by these
+            oceans gives Indonesia coastal islands with extraordinary views and
+            clear water. Indonesia is known for its beautiful beaches,
+            especially in Bali, the Nusa Islands, and Lombok. But despite that,
+            is Indonesia truly known for its idyllic islands or a country that
+            experiences frequent flooding?
+          </p>
+
+          <h2>Background</h2>
+
+          <p>
+            Aqueduct Global Flood Analyzer reported that Indonesia is in sixth
+            place among countries, with the most people experiencing floods.
+            Approximately 640,000 individuals are exposed every year. The
+            Indonesian National Agency for Disaster Management (BNPB) also
+            showed how floods occur as often as 464 times every year. Thus, it
+            is concluded that flooding is one of the most common natural
+            disasters in Indonesia, followed by landslides. According to WRI
+            Indonesia, the two main causes of flooding are linked to weather
+            conditions and trees.
+          </p>
+
+          <ul>
+            <li>
+              <strong>Trees</strong>
+
+              <p>
+                Trees are important as they play a crucial role in keeping the
+                hydrological balance of the drainage basin and enabling the soil
+                to absorb water to prevent flooding. With trees’ presence,
+                natural materials keep the soil absorbent. On the other hand,
+                trees’ roots assist in absorbing minerals and water from the
+                ground.
+              </p>
+
+              <p>
+                Therefore, cutting down trees and replacing them with
+                infrastructure will cause alterations to the hydrologic balance.
+                With fewer trees and ground to absorb rainfall, water will
+                continue to stay on the surface of the ground and increase the
+                chances of flooding.
+              </p>
+            </li>
+
+            <li>
+              <strong>Weather Conditions</strong>
+
+              <p>
+                Weather also takes part in contributing to flooding, as it
+                depends on the severity of rainfall. It is considered
+                high-intensity rainfall if it is more than 100 mm of rain each
+                day. This type of rainfall actively participates in causing
+                flooding. According to WRI Indonesia, in Indonesia, it typically
+                experiences rainfall of 248.5 mm, 110 - 197 mm, and 182 - 289
+                mm. These rainfall data all show being more than 100 mm and can
+                be considered severe. These data were collected in Jayapura
+                Regency in Papua, South Sulawesi, and Bengkulu. In these
+                regions, flood occurrence is quite high.
+              </p>
+
+              <p>
+                This high rainfall in South Sulawesi is caused by a natural
+                phenomenon called the Madden-Julian Oscillation, a strong gust
+                of wind, cloud, and rainfall that circulates the equator, which
+                increases moist air and causes this rainfall. On the other hand,
+                a growing number of clouds are caused by low air pressure in
+                North Papua, causing intense rainfall.
+              </p>
+            </li>
+          </ul>
+
+          <h2>Mangrove’s importance</h2>
+
+          <p>
+            Climate Change Adaptation reported on June 18, 2025, that Indonesia
+            is challenged to face coastal flood risks caused by climate change.
+            This prediction projects flood risk to increase by 37 percent by the
+            year 2030. As a result, sea levels can rise by around 10 centimeters
+            within this period of time. Not only can increasing sea levels be
+            caused, but extreme weather could also take place on a daily basis,
+            including cyclones, which rarely occur here in Indonesia. Due to
+            these projections, planting mangroves is highly encouraged to help
+            small islands such as Labuan Bajo, located in the East Nusa Tenggara
+            Province.
+          </p>
+
+          <p>
+            Mangroves are incredibly needed in Indonesia as they protect the
+            coastline. Mangroves can help reduce storm waves, flooding, wind
+            speed, tsunamis, and erosion. Simultaneously, they can also support
+            a diverse biodiversity by providing habitats for creatures like fish
+            and birds.
+          </p>
+
+          <p>
+            Mangroves are able to prevent flooding as they primarily act as a
+            natural buffer. Their roots are dense, tough, and rooted in the
+            ground. Thus, they are able to absorb waves’ strength to prevent
+            flooding. They also absorb rainwater and help balance the
+            hydrological balance, keeping the land from overflowing with
+            rainwater.
+          </p>
+
+          <p>
+            The United Nations Environment Programme (UNEP) stated that
+            mangroves are efficient in withdrawing carbon dioxide and storing
+            carbon, which also aids to prevent climate change. Mangrove roots
+            can also filter impurities, contaminants, and trap debris, which
+            enhances the water quality.
+          </p>
+
+          <h2>Actions Done and Can be Done</h2>
+
+          <p>
+            Here at Unity in Action (UIA), we have planted over 1300 Mangroves
+            at Teluknaga alongside external volunteers on June 12, 2024. Funds
+            were raised through donations and later on used to purchase 1000
+            mangrove seeds. 300 seeds were financed by volunteers. Each student
+            was given 1 to 4 seeds to plant, and each seedling was planted in
+            either a shallow or a deeper area.
+          </p>
+
+          <p>
+            In order to prevent Indonesia from flooding frequently, drainage
+            systems must be routinely upgraded to effectively drain rainwater
+            and prevent them from overflowing on the land. Decreasing the
+            frequency of infrastructure and cutting down trees can also help
+            trees and soils absorb the rainfall and prevent runoff. Lastly,
+            planting mangroves is highly suggested, especially in areas that are
+            prone to extreme weather.
+          </p>
+
+          <p>
+            Let us together conserve Indonesia and maintain the beauty of the
+            coastline.
+          </p>
+
+          <h2>SOURCES</h2>
+
+          <ul>
+            <li>
+              <a
+                href="https://gca.org/mangroves-save-us-from-billions-of-dollars-of-flood-damage-a-year/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://gca.org/mangroves-save-us-from-billions-of-dollars-of-flood-damage-a-year/
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="https://unityinaction.id/article-Rootingforchange.html"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://unityinaction.id/article-Rootingforchange.html
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="https://www.adaptation-undp.org/indonesia-mangrove-restoration-protecting-coastline-against-rising-sea-levels"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://www.adaptation-undp.org/indonesia-mangrove-restoration-protecting-coastline-against-rising-sea-levels
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="https://wri-indonesia.org/en/insights/3-main-causes-floods-indonesia-and-how-prevent-them"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://wri-indonesia.org/en/insights/3-main-causes-floods-indonesia-and-how-prevent-them
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+
+    <footer class="footer">
+      <div class="footer-col">
+        <h4>Find us at</h4>
+
+        <div class="social-links">
+          <a
+            href="https://www.instagram.com/unityinaction.id?igsh=Zm16eGR1NTQ2OTQ5"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <i class="fab fa-instagram"></i>
+          </a>
+
+          <a
+            href="https://www.tiktok.com/@unityinaction.id?_t=ZS-8xJONGTydNq&_r=1"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+          >
+            <i class="fab fa-tiktok"></i>
+          </a>
+        </div>
+
+        <br />
+
+        <p class="copyright">UnityinAction.hub@gmail.com</p>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+
+    <script>
+      const navbarToggle = document.querySelector(".navbar-toggle");
+      const navbarLinks = document.querySelector(".navbar-links");
+
+      // Toggle mobile navigation
+
+      navbarToggle.addEventListener("click", () => {
+        navbarLinks.classList.toggle("active");
+      });
+
+      // Close navigation after selecting a link
+
+      document.querySelectorAll(".navbar-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navbarLinks.classList.remove("active");
+        });
+      });
+
+      // Change navigation background when scrolling
+
+      window.addEventListener("scroll", () => {
+        const nav = document.getElementById("main-nav");
+
+        if (window.scrollY > 20) {
+          nav.classList.add("scrolled");
+        } else {
+          nav.classList.remove("scrolled");
+        }
+      });
+
+      // Close mobile navigation when clicking outside
+
+      document.addEventListener("click", (e) => {
+        if (
+          navbarLinks.classList.contains("active") &&
+          !e.target.closest(".navbar-links") &&
+          !e.target.closest(".navbar-toggle")
+        ) {
+          navbarLinks.classList.remove("active");
+        }
+      });
+    </script>
+  </body>
+</html>

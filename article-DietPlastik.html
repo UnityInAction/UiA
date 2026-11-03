@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>UiA | Diet Plastik Program</title>
+
+    <link rel="shortcut icon" href="logo-nt.png" type="image/x-icon" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary-color: #333;
+        --accent-color: #6a855c;
+        --text-light: #ffffff;
+        --text-dark: #24262b;
+        --transition-normal: 0.3s ease;
+        --transition-slow: 0.5s ease;
+        --shadow-normal: 0 4px 8px rgba(0, 0, 0, 0.2);
+        --shadow-large: 0 4px 20px rgba(255, 255, 255, 0.2);
+        --heading-font: "Playfair Display", serif;
+        --body-font: "Montserrat", sans-serif;
+        --nav-font: "Raleway", sans-serif;
+        --green-text: #171b0a;
+        --dark-green: #18230f;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body::-webkit-scrollbar {
+        display: none;
+      }
+
+      body {
+        font-family: var(--body-font);
+        overflow-x: hidden;
+        line-height: 1.6;
+        letter-spacing: 0.02rem;
+        background-color: black;
+        color: var(--text-light);
+      }
+
+      /* Navigation */
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 1000;
+        box-shadow: var(--shadow-normal);
+        font-family: var(--nav-font);
+        letter-spacing: 0.15rem;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+      }
+
+      nav.scrolled {
+        height: 70px;
+        background-color: var(--dark-green);
+      }
+
+      .navbar-logo {
+        display: flex;
+        align-items: center;
+        color: var(--text-light);
+        font-family: var(--nav-font);
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-weight: bold;
+        letter-spacing: 0.25rem;
+      }
+
+      .navbar-logo img {
+        width: 40px;
+        height: 40px;
+        margin-right: 15px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .navbar-links {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+        text-align: center;
+      }
+
+      .navbar-links li {
+        margin: 0 15px;
+      }
+
+      .navbar-links a {
+        color: var(--text-light);
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: color var(--transition-normal);
+        display: block;
+      }
+
+      .navbar-links a:hover {
+        color: var(--accent-color);
+      }
+
+      .navbar-toggle {
+        display: none;
+        font-size: 1.5rem;
+        color: var(--text-light);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+      }
+
+      /* Header */
+
+      #main-header {
+        width: 100%;
+        height: 60vh;
+        background: url("stamp-card-1.png") no-repeat center center;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        user-select: none;
+      }
+
+      #main-header::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1;
+      }
+
+      /* Footer */
+
+      .footer {
+        background-color: var(--dark-green);
+        padding: 40px 0;
+        text-align: center;
+      }
+
+      .footer-col h4 {
+        font-size: 20px;
+        color: #ffffff;
+        text-transform: capitalize;
+        margin-bottom: 25px;
+        font-weight: 500;
+      }
+
+      .footer-col h4::after {
+        content: "";
+        background-color: var(--accent-color);
+        height: 2px;
+        width: 50px;
+        display: block;
+        margin: 15px auto 20px;
+      }
+
+      .footer-col .social-links a {
+        display: inline-block;
+        height: 45px;
+        width: 45px;
+        background-color: rgba(255, 255, 255, 0.2);
+        margin: 0 10px 10px 0;
+        text-align: center;
+        line-height: 45px;
+        border-radius: 50%;
+        color: #ffffff;
+        transition: all 0.5s ease;
+      }
+
+      .footer-col .social-links a:hover {
+        color: #24262b;
+        background-color: #ffffff;
+        transform: scale(1.2);
+      }
+
+      .copyright {
+        font-size: 0.85rem;
+        color: #888888;
+        text-align: center;
+      }
+
+      .accent {
+        color: var(--accent-color);
+      }
+
+      /* Article */
+
+      .article-container {
+        max-width: 1600px;
+        width: calc(100% - 40px);
+        margin: 20px auto 40px auto;
+        padding: 40px 40px;
+        background-color: #111;
+        border-radius: 10px;
+        box-shadow: var(--shadow-normal);
+        text-align: justify;
+      }
+
+      .article-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid var(--accent-color);
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .article-date {
+        color: var(--accent-color);
+        font-family: var(--nav-font);
+        font-size: 0.9rem;
+        letter-spacing: 0.1rem;
+      }
+
+      .article-category {
+        background-color: var(--accent-color);
+        color: var(--text-light);
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+      }
+
+      .article-title {
+        font-family: var(--heading-font);
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: var(--text-light);
+        line-height: 1.2;
+      }
+
+      .article-subtitle {
+        font-size: 1.2rem;
+        color: var(--accent-color);
+        margin-bottom: 30px;
+        font-style: italic;
+      }
+
+      .article-image {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin: 30px 0;
+        box-shadow: var(--shadow-normal);
+        display: block;
+      }
+
+      .article-content {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #e0e0e0;
+      }
+
+      .article-content p {
+        margin-bottom: 20px;
+      }
+
+      .article-content h2 {
+        font-family: var(--heading-font);
+        color: var(--accent-color);
+        font-size: 1.8rem;
+        margin: 40px 0 20px 0;
+      }
+
+      .article-content h3 {
+        font-family: var(--heading-font);
+        color: var(--text-light);
+        font-size: 1.4rem;
+        margin: 30px 0 15px 0;
+      }
+
+      .article-content ul {
+        margin: 15px 0 25px 25px;
+      }
+
+      .article-content li {
+        margin-bottom: 10px;
+      }
+
+      .article-content a {
+        color: var(--accent-color);
+        text-decoration: none;
+        transition: color var(--transition-normal);
+        overflow-wrap: anywhere;
+      }
+
+      .article-content a:hover {
+        color: #a5bd96;
+        text-decoration: underline;
+      }
+
+      .quote-box {
+        background-color: var(--dark-green);
+        border-left: 4px solid var(--accent-color);
+        padding: 20px;
+        margin: 30px 0;
+        border-radius: 0 10px 10px 0;
+        font-style: italic;
+        font-size: 1.1rem;
+      }
+
+      .article-tags {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #333;
+      }
+
+      .tag {
+        display: inline-block;
+        background-color: rgba(106, 133, 92, 0.2);
+        color: var(--accent-color);
+        padding: 5px 12px;
+        margin: 5px 5px 5px 0;
+        border-radius: 15px;
+        font-size: 0.85rem;
+        border: 1px solid var(--accent-color);
+      }
+
+      .center {
+        text-align: center;
+      }
+
+      .left {
+        text-align: center;
+        font-style: italic;
+        font-size: 15px;
+      }
+
+      /* Responsive Design */
+
+      @media (max-width: 768px) {
+        .navbar-links {
+          flex-direction: column;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          width: 100%;
+          background-color: var(--primary-color);
+          display: none;
+          padding: 0;
+          margin: 0;
+          z-index: 1000;
+          box-shadow: var(--shadow-normal);
+        }
+
+        .navbar-links.active {
+          display: flex;
+        }
+
+        .navbar-links li {
+          margin: 0;
+          width: 100%;
+          border-bottom: 1px solid #444;
+        }
+
+        .navbar-links li a {
+          display: block;
+          padding: 15px;
+          text-align: center;
+        }
+
+        .navbar-toggle {
+          display: block;
+        }
+
+        .navbar-logo {
+          font-size: 1.2rem;
+        }
+
+        .navbar-logo img {
+          width: 30px;
+          height: 30px;
+        }
+
+        .article-container {
+          width: calc(100% - 20px);
+          margin: 10px auto 40px auto;
+          padding: 20px 30px;
+        }
+
+        .article-title {
+          font-size: 2rem;
+        }
+
+        .article-image {
+          height: 250px;
+        }
+
+        .article-meta {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .left {
+          font-size: 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        #main-header {
+          height: 40vh;
+        }
+
+        .article-container {
+          width: calc(100% - 20px);
+          padding: 20px;
+        }
+
+        .article-title {
+          font-size: 1.7rem;
+        }
+
+        .article-content {
+          font-size: 1rem;
+        }
+
+        .article-image {
+          height: 200px;
+        }
+
+        .footer {
+          padding: 30px 0;
+        }
+
+        .footer-col h4 {
+          margin-bottom: 15px;
+          font-size: 18px;
+        }
+
+        .footer-col .social-links a {
+          height: 35px;
+          width: 35px;
+          line-height: 35px;
+          margin: 0 5px 5px 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navigation -->
+
+    <nav id="main-nav">
+      <a href="index.html" class="navbar-logo">
+        <img src="logo.png" alt="Unity in Action Logo" />
+        <p>Unity in Action</p>
+      </a>
+
+      <button class="navbar-toggle" aria-label="Toggle Navigation Menu">
+        &#9776;
+      </button>
+
+      <ul class="navbar-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="timeline.html">Past Projects</a></li>
+        <li><a href="works.html">Scientific Research</a></li>
+        <li><a href="members.html">Members</a></li>
+      </ul>
+    </nav>
+
+    <!-- Header Banner -->
+
+    <header id="main-header"></header>
+
+    <!-- Main Article -->
+
+    <main>
+      <div class="article-container">
+        <div class="article-meta">
+          <span class="article-category">Environment</span>
+        </div>
+
+        <h1 class="article-title center">
+          Diet Plastik Program: The Start of a Plastic-Free Environment
+        </h1>
+
+        <!-- Main Article Image -->
+        <img
+          src="dietplastic.png"
+          alt="Students participating in the Diet Plastik program"
+          class="article-image"
+        />
+
+        <div class="article-content">
+          <p>
+            Plastic accumulation in public areas such as schools, offices, and
+            public malls has been an ongoing problem. It poses significant
+            threats to our environment, including landfill overcapacity, marine
+            pollution, and severely impacts human health. Indonesia is one of
+            the world’s largest contributors to global marine plastic pollution.
+            The country generates 7.8 million tons of plastic waste annually,
+            with only a small fraction of that amount being recycled. The rest
+            sits in landfills such as TPST Bantargebang, Jakarta’s main waste
+            processing site, while some may eventually reach the ocean.
+          </p>
+
+          <p>
+            Plastic and microplastics may also affect human health, as it
+            contains various chemicals that enhance colour, strength, and
+            durability. Plastic can enter the human body through food,
+            cosmetics, and household products. Moreover, high levels of
+            microplastics in the human body could cause cell damage, cell death,
+            and allergic reactions, which can heighten the risk of developing
+            chronic health conditions. Overall, this can contribute to a
+            weakened immune system and other health concerns. Therefore, plastic
+            waste is a serious issue that affects many people, not just the
+            environment.
+          </p>
+
+          <p>
+            Therefore, Unity in Action has conducted the “Diet Plastik” program,
+            aiming at ensuring less plastic usage in Santa Laurensia Senior High
+            School. The program is compulsory for senior high school students,
+            while other students and staff members are encouraged to adopt
+            similar practices in their respective communities. Unity in Action
+            believes that small actions can make a difference in the future. By
+            starting small, the program may provide a meaningful impact in the
+            future.
+          </p>
+
+          <p>
+            The “Diet Plastik” program is divided into two main sub-programs,
+            both occurring once a week over the course of several months. The
+            first one requires students to bring their own cutlery and lunch
+            boxes to minimize the amount of plastic waste, especially when
+            purchasing food from the canteen. To encourage students, the Unity
+            in Action team also created a stamp card system. Every week,
+            students who can show their “plastic-free” lunch are rewarded with a
+            stamp. The first few students who complete their stamp cards are
+            rewarded with a voucher that can be spent on canteen food or drinks
+            of their choice. However, students must present their completed card
+            before redeeming the voucher. Through this incentive program,
+            students can experience a hands-on approach to reducing the amount
+            of plastic waste within the school.
+          </p>
+
+          <p>
+            The second part of the program requires each class to collect HDPE
+            plastic. HDPE, or High-Density Polyethylene, is a durable,
+            recyclable thermoplastic made from petroleum and is widely used for
+            packaging, piping, and construction materials. In this program, each
+            class must collect HDPE plastic products, such as milk jugs, shampoo
+            bottles, and even bottle caps, every week. At the end of the week,
+            the Unity in Action team gathers the collected HDPE plastic products
+            from each class and weighs them.
+          </p>
+
+          <p>
+            In addition, each class must meet specific judging criteria when
+            submitting their HDPE plastics, such as cleanliness and consistency,
+            which contribute to their overall score. The class that collects the
+            largest amount of HDPE plastic products and achieves the highest
+            score is the winner of the competition.
+          </p>
+
+          <p>
+            The “Diet Plastik” program isn’t merely a school program; it’s a
+            stepping stone towards raising awareness about plastic usage among
+            the younger generation. As we acknowledge the dangers of plastic
+            pollution, let’s also recognize the significance of programs that
+            help alleviate this issue, such as the “Diet Plastik” program. In
+            return, it’s shaping a more sustainable environment and creating a
+            better future for all.
+          </p>
+
+          <h2>Sources</h2>
+
+          <ul>
+            <li>
+              <a
+                href="https://smartcity.jakarta.go.id/en/blog/04-2026-ini-alasan-kenapa-kita-harus-mulai-pilah-sampah/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Jakarta Smart City – Ini Alasan Kenapa Kita Harus Mulai Pilah
+                Sampah
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="https://idepfoundation.org/the-destructive-impact-of-plastic-on-ecosystems-and-global-health/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                IDEP Foundation – The Destructive Impact of Plastic on
+                Ecosystems and Global Health
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="https://chandra-asri.com/en/blog/hdpe-plastic"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Chandra Asri – HDPE Plastic
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+
+    <footer class="footer">
+      <div class="footer-col">
+        <h4>Find us at</h4>
+
+        <div class="social-links">
+          <a
+            href="https://www.instagram.com/unityinaction.id?igsh=Zm16eGR1NTQ2OTQ5"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <i class="fab fa-instagram"></i>
+          </a>
+
+          <a
+            href="https://www.tiktok.com/@unityinaction.id?_t=ZS-8xJONGTydNq&_r=1"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+          >
+            <i class="fab fa-tiktok"></i>
+          </a>
+        </div>
+
+        <br />
+
+        <p class="copyright">UnityinAction.hub@gmail.com</p>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+
+    <script>
+      const navbarToggle = document.querySelector(".navbar-toggle");
+      const navbarLinks = document.querySelector(".navbar-links");
+
+      // Toggle mobile navigation
+
+      navbarToggle.addEventListener("click", () => {
+        navbarLinks.classList.toggle("active");
+      });
+
+      // Close navigation after selecting a link
+
+      document.querySelectorAll(".navbar-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navbarLinks.classList.remove("active");
+        });
+      });
+
+      // Change navigation background when scrolling
+
+      window.addEventListener("scroll", () => {
+        const nav = document.getElementById("main-nav");
+
+        if (window.scrollY > 20) {
+          nav.classList.add("scrolled");
+        } else {
+          nav.classList.remove("scrolled");
+        }
+      });
+
+      // Close mobile navigation when clicking outside
+
+      document.addEventListener("click", (e) => {
+        if (
+          navbarLinks.classList.contains("active") &&
+          !e.target.closest(".navbar-links") &&
+          !e.target.closest(".navbar-toggle")
+        ) {
+          navbarLinks.classList.remove("active");
+        }
+      });
+    </script>
+  </body>
+</html>
