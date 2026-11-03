@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UiA | Eco-Innovation</title>
+    <link rel="shortcut icon" href="logo-nt.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #333;
+            --accent-color: #6a855c;
+            --text-light: #ffffff;
+            --text-dark: #24262b;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+            --shadow-normal: 0 4px 8px rgba(0, 0, 0, 0.2);
+            --shadow-large: 0 4px 20px rgba(255, 255, 255, 0.2);
+            --heading-font: 'Playfair Display', serif;
+            --body-font: 'Montserrat', sans-serif;
+            --nav-font: 'Raleway', sans-serif;
+            --green-text: #171b0a;
+            --dark-green: #18230f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        body {
+            font-family: var(--body-font);
+            overflow-x: hidden;
+            line-height: 1.6;
+            letter-spacing: 0.02rem;
+            background-color: black;
+            color: var(--text-light);
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+            box-shadow: var(--shadow-normal);
+            font-family: var(--nav-font);
+            letter-spacing: 0.15rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        nav.scrolled {
+            height: 70px;
+            background-color: var(--dark-green);
+        }
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+            font-family: var(--nav-font);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 0.25rem;
+        }
+
+        .navbar-logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .navbar-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            text-align: center;
+        }
+
+        .navbar-links li {
+            margin: 0 15px;
+        }
+
+        .navbar-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color var(--transition-normal);
+            display: block;
+        }
+
+        .navbar-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .navbar-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Header */
+        #main-header {
+            width: 100%;
+            height: 60vh;
+            background: url('banner-earthday.jpg') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-align: center;
+            position: relative;
+            user-select: none;
+        }
+
+        #main-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 1rem;
+            width: 100%;
+        }
+
+        .header-content h1 {
+            font-size: 3rem;
+            margin: 0 0 1rem;
+            font-weight: bold;
+            font-family: var(--heading-font);
+            letter-spacing: 0.4rem;
+        }
+
+        .header-content p {
+            font-size: 1.25rem;
+            margin: 0;
+            font-family: var(--nav-font);
+            letter-spacing: 0.25rem;
+        }
+        .footer {
+            background-color: var(--dark-green);
+            padding: 40px 0;
+            text-align: center;
+            filter: blur(50%);
+        }
+        .footer-col h4 {
+            font-size: 20px;
+            color: #ffffff;
+            text-transform: capitalize;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        .footer-col h4::after {
+            content: '';
+            background-color: var(--accent-color);
+            height: 2px;
+            width: 50px;
+            display: block;
+            margin: 15px auto 20px;
+        }
+        .footer-col .social-links a {
+            display: inline-block;
+            height: 45px;
+            width: 45px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 0 10px 10px 0;
+            text-align: center;
+            line-height: 45px;
+            border-radius: 50%;
+            color: #ffffff;
+            transition: all 0.5s ease;
+        }
+        .footer-col .social-links a:hover {
+            color: #24262b;
+            background-color: #ffffff;
+            transform: scale(1.2);
+        }
+        .copyright {
+            font-size: 0.85rem;
+            color: #888888;
+            text-align: center;
+        }
+        .accent{
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links {
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                display: none;
+                padding: 0;
+                margin: 0;
+                z-index: 1000;
+                box-shadow: var(--shadow-normal);
+            }
+
+            .navbar-links.active {
+                display: flex;
+            }
+
+            .navbar-links li {
+                margin: 0;
+                width: 100%;
+                border-bottom: 1px solid #444;
+            }
+
+            .navbar-links li a {
+                display: block;
+                padding: 15px;
+                text-align: center;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .navbar-logo {
+                font-size: 1.2rem;
+            }
+
+            .navbar-logo img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .header-content h1 {
+                font-size: 2rem;
+            }
+
+            .header-content p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-content h1 {
+                font-size: 1.7rem;
+            }
+
+            #main-header {
+                height: 40vh;
+            }
+
+            .footer-col .social-links a {
+                height: 35px;
+                width: 35px;
+                line-height: 35px;
+                margin: 0 5px 5px 0;
+            }
+            .footer { padding: 30px 0; }
+            .footer-col h4 {
+                margin-bottom: 15px;
+                font-size: 18px;
+            }
+            .center{
+    text-align: center;
+}
+            }
+            .article-container {
+    max-width: 100vw;
+    width: calc(100% - 40px);
+    margin: 20px auto 40px auto;
+    padding: 40px 40px;
+    background-color: #111;
+    border-radius: 10px;
+    box-shadow: var(--shadow-normal);
+    text-align: justify;
+}
+
+.article-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--accent-color);
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.article-date {
+    color: var(--accent-color);
+    font-family: var(--nav-font);
+    font-size: 0.9rem;
+    letter-spacing: 0.1rem;
+}
+
+.article-category {
+    background-color: var(--accent-color);
+    color: var(--text-light);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
+
+.article-title {
+    font-family: var(--heading-font);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--text-light);
+    line-height: 1.2;
+}
+
+.article-subtitle {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.article-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 30px 0;
+    box-shadow: var(--shadow-normal);
+}
+
+.article-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #e0e0e0;
+}
+
+.article-content p {
+    margin-bottom: 20px;
+}
+
+.article-content h2 {
+    font-family: var(--heading-font);
+    color: var(--accent-color);
+    font-size: 1.8rem;
+    margin: 40px 0 20px 0;
+}
+
+.article-content h3 {
+    font-family: var(--heading-font);
+    color: var(--text-light);
+    font-size: 1.4rem;
+    margin: 30px 0 15px 0;
+}
+
+.quote-box {
+    background-color: var(--dark-green);
+    border-left: 4px solid var(--accent-color);
+    padding: 20px;
+    margin: 30px 0;
+    border-radius: 0 10px 10px 0;
+    font-style: italic;
+    font-size: 1.1rem;
+}
+
+.article-tags {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+}
+
+.tag {
+    display: inline-block;
+    background-color: rgba(106, 133, 92, 0.2);
+    color: var(--accent-color);
+    padding: 5px 12px;
+    margin: 5px 5px 5px 0;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    border: 1px solid var(--accent-color);
+}
+
+@media (max-width: 768px) {
+        .article-container {
+        width: calc(100% - 20px);
+        margin: 10px auto 40px auto;
+        padding: 20px 30px;
+    }
+    
+    .article-title {
+        font-size: 2rem;
+    }
+    
+    .article-image {
+        height: 250px;
+    }
+    
+    .article-meta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .center{
+    text-align: center;
+}
+.left{
+        font-size: 10px;
+    }
+}
+.left{
+    text-align: center;
+    font-style: italic;
+    font-size: 15px;
+}
+    </style>
+</head>
+<body>
+    <nav id="main-nav">
+        <a href="index.html" class="navbar-logo">
+            <img src="logo.png" alt="Verstappen Motors Logo"><p>Unity in Action</p>
+        </a>
+        <button class="navbar-toggle" aria-label="Toggle Navigation Menu">&#9776;</button>
+        <ul class="navbar-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="timeline.html">Past Projects</a></li>
+            <li><a href="works.html">Scientific Research</a></li>
+            <li><a href="members.html">Members</a></li>
+        </ul>
+    </nav>
+    
+    <header id="main-header">
+        <div class="header-content">
+            <h1>Earth Day 2026</h1>
+            <p class="accent"></p>
+        </div>
+    </header>
+    <main>
+    <div class="article-container">
+        <div class="article-meta">
+            <span class="article-date">April 2026</span>
+            <span class="article-category">Event</span>
+        </div>
+        
+        <h1 class="article-title center">Santa Laurensia’s Earth Day 2026: “Our Power, Our Planet”
+        </h1>
+        <p class="article-subtitle center">Earth Day 2026</p>
+        <img src="earthday1.JPG" alt="Earth Day 2026" class="article-image">
+        
+        <div class="article-content">
+            <p class="left">Every year, on April 22, the world celebrates Earth Day to raise awareness about environmental issues and encourage action to help protect our planet. Problems such as climate change, pollution, waste, and deforestation continue to threaten ecosystems and living organisms all over the world. Because of this, environmental awareness has become increasingly important, especially among the younger generation. To commemorate Earth Day, Unity in Action organized a series of activities with the theme “Our Power, Our Planet.” Through interactive events, competitions, and workshops, students were encouraged to work together, think critically, and participate in environmental action.
+            </p>
+            <h2>Purpose of the Event
+            </h2>
+            
+           <p>The purpose of the Earth Day event organized by Unity in Action was to increase students’ awareness of global environmental issues and encourage them to grow a sense of environmental responsibility. Through various activities, students are hoped to realize that every individual has the power to contribute to our environment. In addition to that, the event was made to strengthen teamwork among students through games and challenges. Activities such as scavenger hunts, workshops, and culinary competitions also encouraged students to develop critical thinking and problem-solving skills in a fun and interactive way. Rather than presenting sustainability as something serious or difficult, the event showed students that environmental awareness can be promoted creatively through enjoyable experiences shared together as a community.
+        </p>     
+            
+            
+            <h2>Earth Spirit Day</h2>
+            
+            <p>As an opening event of the Earth Day celebration, Earth Spirit Day invited students and teachers to dress in safari-themed outfits and accessories inspired by wildlife and nature. Throughout the school, students can be seen wearing animal prints, explorer hats, face paint, and animal-inspired costumes. The safari theme symbolized the beauty and diversity of the Earth while reminding students about the importance of protecting wildlife and natural habitats. Not only did this activity spread environmental awareness, but it also created a more festive and exciting atmosphere around the school. To further encourage participation and creativity, a “Best Dressed” award was given to selected participants from each grade. Through Earth Spirit Day, the event was celebrated in a fun and memorable way while still carrying a meaningful environmental message.
+            </p>
+
+            <h2>Echoes of Gaia Festival</h2>
+            <p>One of the highlights of the Earth Day celebration was the Echoes of Gaia Festival, an outdoor festival in the soccer field where students were free to participate in any activities they were interested in.
+            </p>
+            <p>One of the busiest areas in the festival was the game booths. Many of the games were created using recycled or reused materials such as cardboard, plastic bottles, paper, and other unused objects. For every game booth that a student participated in, they would get a signature on their participation card. After collecting ten signatures, participants could exchange their completed cards for free snacks.
+            </p>
+            <p>Aside from games, students can participate in a flower arrangement workshop. During this activity, students arranged flower bouquets using recycled paper bags as flower wrappers, encouraging students to appreciate nature while also reusing materials creatively.
+            </p>
+            <p>Another interactive workshop available during the festival was the EcoPrint workshop. In this activity, students created natural prints on tote bags using leaves and flowers. Participants placed leaves on the tote bag, covered them with reused plastic sheets, and pounded the leaves with wooden hammers to transfer their pigments and patterns on the fabric. Afterward, the bags were soaked in an alum solution and dried. This workshop introduced students to environmentally friendly art techniques while encouraging the use of reusable tote bags in daily life.
+            </p>
+            <p>The festival also featured a face painting booth where participants could decorate their faces with nature-inspired designs such as flowers, leaves, and animals. Meanwhile, the photobooth provided students with a memorable way to capture moments from the celebration with friends.
+            </p>
+            <p>Amidst the hot and sunny weather during the festival, students could also enjoy refreshing drinks and snacks sold in The Intern Ecospace. Their booth sold items such as kombucha and shaved ice, helping participants stay energized while enjoying the Earth Day celebration.
+            </p>
+            <h2>The Hidden Trail - Scavenger Hunt</h2>
+            <p>A major activity held during the Earth Day celebration was The Hidden Trail, a scavenger hunt competition where each class sent five representatives to participate. In this activity, participants become “Earth Agents” (Agen Bumi) tasked with completing a mission by solving clues scattered around the school. The scavenger hunt required participants to solve various types of codes, such as Morse code, anagrams, reversed texts, and number codes, to discover the next location. Starting from the hall near the Health Center, continuing to the canteen, the tree areas, and the fitness area, students had to work together while thinking critically under time pressure. This activity strengthened students’ teamwork, communication, problem-solving abilities, and environmental awareness in a fun and competitive way.</p>
+
+<h2>Root & Reverie - Culinary Competition</h2>
+<p>The Earth Day celebration also featured a culinary competition titled Root & Reverie. In this competition, each class sent teams of three to four students to create a healthy and environmentally friendly dish within 60 minutes. Participants were challenged to prepare a meal while considering sustainability through aspects like reducing food waste, minimizing greenhouse gas emissions, using local ingredients, and limiting waste. Before being judged, every team also had to present its dishes and explain the sustainability concepts behind them. One example of the dishes created during the competition was fruit sando, a dessert that combined creativity and healthy ingredient choices. This activity taught students that sustainability can be applied through food preparation and consumption habits in everyday life.</p>
+
+<p>Through the series of Earth Day activities organized by Unity in Action, students were able to celebrate the day of our planet in a fun, creative, and interactive way while learning more about environmental responsibility. From safari-themed outfits and mini games to scavenger hunts and culinary creations, every activity carried the message that protecting the Earth can begin with consistent small actions. More than just a yearly celebration, “Our Power, Our Planet” reminded students that every individual can create a positive change for the environment. With teamwork, creativity, and responsibility, the Earth Day event encouraged students to contribute toward a more sustainable future.</p>
+
+
+            
+</main>
+<footer class="footer">
+        <div class="footer-col">
+            <h4>Find us at</h4>
+            <div class="social-links">
+                <a href="https://www.instagram.com/unityinaction.id?igsh=Zm16eGR1NTQ2OTQ5" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@unityinaction.id?_t=ZS-8xJONGTydNq&_r=1" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <br>
+            <p class="copyright">UnityinAction.hub@gmail.com</p>
+        </div>
+    </footer>
+    
+    <script>
+        const navbarToggle = document.querySelector('.navbar-toggle');
+        const navbarLinks = document.querySelector('.navbar-links');
+        
+        navbarToggle.addEventListener('click', () => {
+            navbarLinks.classList.toggle('active');
+        });
+        
+        document.querySelectorAll('.navbar-links a').forEach(link => {
+            link.addEventListener('click', () => navbarLinks.classList.remove('active'));
+        });
+        
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+        
+        // Close navbar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navbarLinks.classList.contains('active') && 
+                !e.target.closest('.navbar-links') && 
+                !e.target.closest('.navbar-toggle')) {
+                navbarLinks.classList.remove('active');
+            }
+        });
+        
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you shortly.');
+            this.reset();
+        });
+        function reset(){
+            this.reset();
+        }
+    </script>
+</body>
+</html>

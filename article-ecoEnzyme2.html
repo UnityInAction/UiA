@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>
+      UiA | A Step for Nature: An Eco-Enzyme Activity at the Cisadane River
+    </title>
+
+    <link rel="shortcut icon" href="logo-nt.png" type="image/x-icon" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary-color: #333;
+        --accent-color: #6a855c;
+        --text-light: #ffffff;
+        --text-dark: #24262b;
+        --transition-normal: 0.3s ease;
+        --transition-slow: 0.5s ease;
+        --shadow-normal: 0 4px 8px rgba(0, 0, 0, 0.2);
+        --shadow-large: 0 4px 20px rgba(255, 255, 255, 0.2);
+        --heading-font: "Playfair Display", serif;
+        --body-font: "Montserrat", sans-serif;
+        --nav-font: "Raleway", sans-serif;
+        --green-text: #171b0a;
+        --dark-green: #18230f;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body::-webkit-scrollbar {
+        display: none;
+      }
+
+      body {
+        font-family: var(--body-font);
+        overflow-x: hidden;
+        line-height: 1.6;
+        letter-spacing: 0.02rem;
+        background-color: black;
+        color: var(--text-light);
+      }
+
+      /* Navigation */
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 1000;
+        box-shadow: var(--shadow-normal);
+        font-family: var(--nav-font);
+        letter-spacing: 0.15rem;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+      }
+
+      nav.scrolled {
+        height: 70px;
+        background-color: var(--dark-green);
+      }
+
+      .navbar-logo {
+        display: flex;
+        align-items: center;
+        color: var(--text-light);
+        font-family: var(--nav-font);
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-weight: bold;
+        letter-spacing: 0.25rem;
+      }
+
+      .navbar-logo img {
+        width: 40px;
+        height: 40px;
+        margin-right: 15px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .navbar-links {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+        text-align: center;
+      }
+
+      .navbar-links li {
+        margin: 0 15px;
+      }
+
+      .navbar-links a {
+        color: var(--text-light);
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: color var(--transition-normal);
+        display: block;
+      }
+
+      .navbar-links a:hover {
+        color: var(--accent-color);
+      }
+
+      .navbar-toggle {
+        display: none;
+        font-size: 1.5rem;
+        color: var(--text-light);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+      }
+
+      /* Header */
+
+      #main-header {
+        width: 100%;
+        height: 60vh;
+        background: url("ecoenzyme.JPG") no-repeat center center;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        user-select: none;
+      }
+
+      #main-header::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1;
+      }
+
+      /* Footer */
+
+      .footer {
+        background-color: var(--dark-green);
+        padding: 40px 0;
+        text-align: center;
+      }
+
+      .footer-col h4 {
+        font-size: 20px;
+        color: #ffffff;
+        text-transform: capitalize;
+        margin-bottom: 25px;
+        font-weight: 500;
+      }
+
+      .footer-col h4::after {
+        content: "";
+        background-color: var(--accent-color);
+        height: 2px;
+        width: 50px;
+        display: block;
+        margin: 15px auto 20px;
+      }
+
+      .footer-col .social-links a {
+        display: inline-block;
+        height: 45px;
+        width: 45px;
+        background-color: rgba(255, 255, 255, 0.2);
+        margin: 0 10px 10px 0;
+        text-align: center;
+        line-height: 45px;
+        border-radius: 50%;
+        color: #ffffff;
+        transition: all 0.5s ease;
+      }
+
+      .footer-col .social-links a:hover {
+        color: #24262b;
+        background-color: #ffffff;
+        transform: scale(1.2);
+      }
+
+      .copyright {
+        font-size: 0.85rem;
+        color: #888888;
+        text-align: center;
+      }
+
+      .accent {
+        color: var(--accent-color);
+      }
+
+      /* Article */
+
+      .article-container {
+        max-width: 1600px;
+        width: calc(100% - 40px);
+        margin: 20px auto 40px auto;
+        padding: 40px 40px;
+        background-color: #111;
+        border-radius: 10px;
+        box-shadow: var(--shadow-normal);
+        text-align: justify;
+      }
+
+      .article-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid var(--accent-color);
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .article-date {
+        color: var(--accent-color);
+        font-family: var(--nav-font);
+        font-size: 0.9rem;
+        letter-spacing: 0.1rem;
+      }
+
+      .article-category {
+        background-color: var(--accent-color);
+        color: var(--text-light);
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+      }
+
+      .article-title {
+        font-family: var(--heading-font);
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: var(--text-light);
+        line-height: 1.2;
+      }
+
+      .article-subtitle {
+        font-size: 1.2rem;
+        color: var(--accent-color);
+        margin-bottom: 30px;
+        font-style: italic;
+      }
+
+      .article-image {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin: 30px 0;
+        box-shadow: var(--shadow-normal);
+        display: block;
+      }
+
+      .article-content {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #e0e0e0;
+      }
+
+      .article-content p {
+        margin-bottom: 20px;
+      }
+
+      .article-content h2 {
+        font-family: var(--heading-font);
+        color: var(--accent-color);
+        font-size: 1.8rem;
+        margin: 40px 0 20px 0;
+      }
+
+      .article-content h3 {
+        font-family: var(--heading-font);
+        color: var(--text-light);
+        font-size: 1.4rem;
+        margin: 30px 0 15px 0;
+      }
+
+      .article-content ul {
+        margin: 15px 0 25px 25px;
+      }
+
+      .article-content li {
+        margin-bottom: 10px;
+      }
+
+      .article-content a {
+        color: var(--accent-color);
+        text-decoration: none;
+        transition: color var(--transition-normal);
+        overflow-wrap: anywhere;
+      }
+
+      .article-content a:hover {
+        color: #a5bd96;
+        text-decoration: underline;
+      }
+
+      .quote-box {
+        background-color: var(--dark-green);
+        border-left: 4px solid var(--accent-color);
+        padding: 20px;
+        margin: 30px 0;
+        border-radius: 0 10px 10px 0;
+        font-style: italic;
+        font-size: 1.1rem;
+      }
+
+      .article-tags {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #333;
+      }
+
+      .tag {
+        display: inline-block;
+        background-color: rgba(106, 133, 92, 0.2);
+        color: var(--accent-color);
+        padding: 5px 12px;
+        margin: 5px 5px 5px 0;
+        border-radius: 15px;
+        font-size: 0.85rem;
+        border: 1px solid var(--accent-color);
+      }
+
+      .center {
+        text-align: center;
+      }
+
+      .left {
+        text-align: center;
+        font-style: italic;
+        font-size: 15px;
+      }
+
+      /* Responsive Design */
+
+      @media (max-width: 768px) {
+        .navbar-links {
+          flex-direction: column;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          width: 100%;
+          background-color: var(--primary-color);
+          display: none;
+          padding: 0;
+          margin: 0;
+          z-index: 1000;
+          box-shadow: var(--shadow-normal);
+        }
+
+        .navbar-links.active {
+          display: flex;
+        }
+
+        .navbar-links li {
+          margin: 0;
+          width: 100%;
+          border-bottom: 1px solid #444;
+        }
+
+        .navbar-links li a {
+          display: block;
+          padding: 15px;
+          text-align: center;
+        }
+
+        .navbar-toggle {
+          display: block;
+        }
+
+        .navbar-logo {
+          font-size: 1.2rem;
+        }
+
+        .navbar-logo img {
+          width: 30px;
+          height: 30px;
+        }
+
+        .article-container {
+          width: calc(100% - 20px);
+          margin: 10px auto 40px auto;
+          padding: 20px 30px;
+        }
+
+        .article-title {
+          font-size: 2rem;
+        }
+
+        .article-image {
+          height: 250px;
+        }
+
+        .article-meta {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .left {
+          font-size: 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        #main-header {
+          height: 40vh;
+        }
+
+        .article-container {
+          width: calc(100% - 20px);
+          padding: 20px;
+        }
+
+        .article-title {
+          font-size: 1.7rem;
+        }
+
+        .article-content {
+          font-size: 1rem;
+        }
+
+        .article-image {
+          height: 200px;
+        }
+
+        .footer {
+          padding: 30px 0;
+        }
+
+        .footer-col h4 {
+          margin-bottom: 15px;
+          font-size: 18px;
+        }
+
+        .footer-col .social-links a {
+          height: 35px;
+          width: 35px;
+          line-height: 35px;
+          margin: 0 5px 5px 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navigation -->
+
+    <nav id="main-nav">
+      <a href="index.html" class="navbar-logo">
+        <img src="logo.png" alt="Unity in Action Logo" />
+        <p>Unity in Action</p>
+      </a>
+
+      <button class="navbar-toggle" aria-label="Toggle Navigation Menu">
+        &#9776;
+      </button>
+
+      <ul class="navbar-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="timeline.html">Past Projects</a></li>
+        <li><a href="works.html">Scientific Research</a></li>
+        <li><a href="members.html">Members</a></li>
+      </ul>
+    </nav>
+
+    <!-- Header Banner -->
+
+    <header id="main-header"></header>
+
+    <!-- Main Article -->
+
+    <main>
+      <div class="article-container">
+        <div class="article-meta">
+          <span class="article-category">Environment</span>
+        </div>
+
+        <h1 class="article-title center">
+          A Step for Nature: An Eco-Enzyme Activity at the Cisadane River
+        </h1>
+
+        <!-- Main Article Image -->
+        <img
+          src="cisadane (1).png"
+          alt="Students participating in the eco-enzyme activity at the Cisadane River"
+          class="article-image"
+        />
+
+        <div class="article-content">
+          <h2>Background</h2>
+
+          <p>
+            Environmental pollution has become one of the major issues affecting
+            rivers in Indonesia. The Cisadane River, one of the important rivers
+            in West Java and Banten, plays a significant role in supporting
+            regional ecosystems—around 20 percent of Jakarta’s raw water supply
+            comes from this river. However, rapid urbanization, inadequate waste
+            management, and household wastewater have increasingly threatened
+            the river’s cleanliness. River pollution not only causes damage to
+            ecosystems but can also directly impact human health through
+            diseases such as diarrhea, cholera, and hepatitis if the water
+            contains bacteria, viruses, or parasites. Socially, when clean water
+            becomes scarce, communities may compete for it, leading to conflict.
+          </p>
+
+          <p>
+            Recognizing the importance of preserving the environment, Unity in
+            Action has participated in activities that promote sustainability
+            and environmental awareness. One such activity involved a group of
+            students focused on contributing positively to the Cisadane River
+            through the use of eco enzymes. By taking part in this activity,
+            students were allowed to engage directly in environmental
+            conservation rather than simply learn about it in a classroom.
+          </p>
+
+          <h2>What are Eco Enzymes?</h2>
+
+          <p>
+            Eco enzymes are multipurpose liquids produced through the
+            fermentation of organic waste. These are usually made from fruit
+            peels, vegetable scraps, brown sugar, and water. The fermentation
+            process may take several months. 60% of the total waste produced in
+            Indonesia is organic waste, yet only 7.5% of it is processed.
+            Organic waste that is piled up in a landfill produces harmful gases
+            to the environment. With eco enzymes, these wastes can be put to
+            good use. They are considered environmentally friendly because they
+            are made from biodegradable materials, while also reducing food
+            waste by repurposing organic matter.
+          </p>
+
+          <p>
+            Eco enzymes are commonly used as natural cleaning agents,
+            fertilizers for plants, and solutions that may help improve water
+            quality. They offer a sustainable alternative to chemical-based
+            cleaning products and encourage waste reduction. In this case, eco
+            enzymes are often introduced in rivers to promote healthier
+            environments. Eco enzymes can demonstrate how materials that would
+            normally be thrown away can be transformed into something
+            beneficial.
+          </p>
+
+          <h2>Activity</h2>
+
+          <p>
+            The activity began in the afternoon when participating students
+            gathered together in the Columbus Lobby. Students felt curious yet
+            eager to take part in an environmental initiative. Teachers briefly
+            organized and ensured all necessary materials were ready to use.
+            Everyone started moving and arranging the gallons of eco enzymes
+            that would later be poured into the river. After everything was
+            prepared, students boarded a large vehicle and traveled together to
+            the Cisadane River.
+          </p>
+
+          <p>
+            The journey took about 30 minutes, with students chatting with one
+            another while waiting to arrive at the destination. Upon finally
+            arriving at a bridge above the Cisadane River, the gallons of eco
+            enzymes were unloaded from the vehicle, while students took each of
+            the containers, opened them, and poured the eco enzymes into the
+            river. Working together, students carefully poured the eco enzymes
+            into the flowing river below. Throughout the activity, many other
+            students were focusing on documenting the moment.
+          </p>
+
+          <p>
+            This activity became a valuable learning experience for everyone
+            present. Students were able to be directly involved in the
+            conservation of the environment, experiencing it up close. It also
+            strengthened teamwork and responsibility, as the students worked
+            together with others for one goal. Standing above the river while
+            participating in the process made many students reflect on the
+            importance of environmental preservation and how collective efforts
+            can make a difference, especially after seeing the large amount of
+            garbage piled along the riverbanks, which was highly visible to
+            everyone passing by. Not only that, the river water was cloudy and
+            muddy-brown.
+          </p>
+
+          <h2>Environmental Impact</h2>
+
+          <p>
+            Eco enzymes are believed to improve river water quality by acting as
+            a natural catalyst. Some studies and environmental communities
+            suggest that fermented materials can accelerate the decomposition of
+            organic waste, neutralize pollutants, and reduce water cloudiness.
+            This can happen because enzymes speed up the breakdown of harmful
+            organic matter in the water, while also producing disinfecting
+            agents that eliminate foul smells. Furthermore, eco enzymes convert
+            carbon dioxide into carbonate, which may contribute to clearer water
+            conditions. For this reason, eco enzymes are believed to contribute
+            positively to ecosystems due to their organic composition and
+            environmentally friendly nature.
+          </p>
+
+          <p>
+            Overall, participating in the eco enzyme activity at the Cisadane
+            River was a meaningful experience. It reminded students that even
+            simple actions can create a bigger impact by raising environmental
+            awareness and encouraging habits of caring for nature. We hope that
+            similar activities can continue in the future and inspire more young
+            people to take part in preserving Indonesia’s environment for many
+            generations to come.
+          </p>
+
+          <h2>Sources</h2>
+
+          <ul>
+            <li>
+              <a
+                href="https://idn.daiki-axis.co.id/2025/02/24/water-crisis-issues-in-indonesia-understanding-the-problems-and-finding-solutions/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Daiki Axis – Water Crisis Issues in Indonesia: Understanding the
+                Problems and Finding Solutions
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="https://www.thejakartapost.com/news/2018/07/23/what-makes-jakartas-rivers-ugly-and-smelly.html"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                The Jakarta Post – What Makes Jakarta’s Rivers Ugly and Smelly
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="https://indonesiaasri.com/en/education/river-pollution/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Indonesia Asri – River Pollution
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="https://waste4change.com/blog/eco-enzyme-multipurpose-liquid-from-organic-waste/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Waste4Change – Eco Enzyme: Multipurpose Liquid from Organic
+                Waste
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="https://riverstudies.id/index.php/ghep/article/download/71/50"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                River Studies – Research Article
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+
+    <footer class="footer">
+      <div class="footer-col">
+        <h4>Find us at</h4>
+
+        <div class="social-links">
+          <a
+            href="https://www.instagram.com/unityinaction.id?igsh=Zm16eGR1NTQ2OTQ5"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <i class="fab fa-instagram"></i>
+          </a>
+
+          <a
+            href="https://www.tiktok.com/@unityinaction.id?_t=ZS-8xJONGTydNq&_r=1"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+          >
+            <i class="fab fa-tiktok"></i>
+          </a>
+        </div>
+
+        <br />
+
+        <p class="copyright">UnityinAction.hub@gmail.com</p>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+
+    <script>
+      const navbarToggle = document.querySelector(".navbar-toggle");
+      const navbarLinks = document.querySelector(".navbar-links");
+
+      // Toggle mobile navigation
+
+      navbarToggle.addEventListener("click", () => {
+        navbarLinks.classList.toggle("active");
+      });
+
+      // Close navigation after selecting a link
+
+      document.querySelectorAll(".navbar-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navbarLinks.classList.remove("active");
+        });
+      });
+
+      // Change navigation background when scrolling
+
+      window.addEventListener("scroll", () => {
+        const nav = document.getElementById("main-nav");
+
+        if (window.scrollY > 20) {
+          nav.classList.add("scrolled");
+        } else {
+          nav.classList.remove("scrolled");
+        }
+      });
+
+      // Close mobile navigation when clicking outside
+
+      document.addEventListener("click", (e) => {
+        if (
+          navbarLinks.classList.contains("active") &&
+          !e.target.closest(".navbar-links") &&
+          !e.target.closest(".navbar-toggle")
+        ) {
+          navbarLinks.classList.remove("active");
+        }
+      });
+    </script>
+  </body>
+</html>
